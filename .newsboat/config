@@ -1,0 +1,32 @@
+cache-file "~/Dropbox/Newsboat/cache.db"
+
+#browser lynx
+#macro o set browser "lynx %u" ; open-in-browser ; set browser sensible-browser
+
+bookmark-cmd "~/.newsbeuter/scripts/pinboard.pl"
+
+save-path ~/Documents
+
+download-path "~/Téléchargements/podcasts"
+player "mplayer"
+
+#color info blue white
+#color listfocus white yellow
+
+always-display-description true
+auto-reload yes
+download-full-page yes
+mark-as-read-on-hover yes
+refresh-on-startup yes
+
+# Dark solarized color scheme for newsbeuter, based on
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  green   default
+color listfocus          black     yellow
+color listfocus_unread   red     yellow
+color info               default   black
+color article            default   default
+highlight article "^(Title):.*$" blue default
+highlight article "https?://[^ ]+" red default
+highlight article "\\[image\\ [0-9]+\\]" green default

@@ -1,0 +1,62 @@
+#!/bin/bash
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+eval `ssh-agent -s` > /dev/null
+
+. /usr/share/bash-completion/bash_completion
+
+source ${HOME}/.nix-profile/etc/profile.d/nix.sh
+source ${HOME}/.nix-profile/share/bash-completion/bash_completion
+
+#HISTORY
+export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
+export HISTSIZE=10000
+shopt -s histappend #append to bash_history if Terminal quits
+# Recherche avec UpArrow/DownArrow
+if [ -t 1 ]
+then
+    bind '"[A":history-search-backward'
+    bind '"[B":history-search-forward'
+fi
+eval "$(zoxide init bash)"
+
+# FZF
+[[ $- == *i* ]] && source "${HOME}/.nix-profile/share/fzf/completion.bash"
+source ${HOME}/.nix-profile/share/fzf/key-bindings.bash
+
+# wal --theme vscode
+(cat ${HOME}/.cache/wal/sequences &)
+source ${HOME}/.cache/wal/colors-tty.sh
+
+source <(kitty + complete setup bash)
+
+eval "$(starship init bash)"
+
+#  ranger --copy-config=all
+export RANGER_LOAD_DEFAULT_RC=FALSE
+
+eval "$(direnv hook bash)"
+
+# asdf versions manager
+. ${HOME}/.asdf/asdf.sh
+. ${HOME}/.asdf/completions/asdf.bash
+
+source ${HOME}/.config/broot/launcher/bash/br
+
+export EDITOR="nvim"
+
+export GOPATH=${HOME}/dev
+export GOBIN=${HOME}/bin
+#export PATH=$GOBIN:$PATH
+
+export BAT_THEME="Coldark-Dark"
+
+source "${HOME}/.bash_aliases"
+source "${HOME}/.bash_functions"
+
+eval "$(navi widget bash)"

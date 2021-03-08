@@ -1,0 +1,12 @@
+set autoindent
+set casesensitive
+set historylog
+set morespace
+set nohelp
+set mouse
+set multibuffer
+set nowrap
+set smooth
+set softwrap
+set speller "aspell -x -c"
+set suspend
