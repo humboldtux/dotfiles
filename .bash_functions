@@ -78,13 +78,7 @@ function vbguestadd() {
 }
 
 function vbconfig() {
-  if [[ ! $# -eq 1 ]]; then
-    echo "Erreur:  donnez en paramètre la vm, ie:"
-    echo "Exemple:  vbconfig NOMVM"
-    return 1
-  fi
-
-  VM=$1
+  VM=`vboxmanage list vms | awk '{print $1}' | sed s/\"//g | fzf`
 
   vboxmanage modifyvm ${VM} --clipboard-mode bidirectional
   vboxmanage modifyvm ${VM} --draganddrop bidirectional
@@ -275,6 +269,36 @@ function postinstall_40-multimedia() {
   echo "Installation Multimedia"
   sudo apt install -y vlc vlc-plugin-base libnfs13 handbrake* libdvdnav4 libdvd-pkg libdvdread4
   sudo dpkg-reconfigure libdvd-pkg
+}
+
+function postinstall_70-pentest() {
+  PKGS_GO="github.com/ffuf/ffuf github.com/OWASP/Amass/v3/... github.com/tomnomnom/httprobe \
+    github.com/0xsha/GoLinkFinder github.com/003random/getJS"
+  for PKG in ${PKGS_GO}; do
+    go get -v ${PKG}
+  done
+
+  PIPX_PKGS="sublist3r dnsgen"
+  echo "Installation logiciels pipx: ${PIPX_PKGS}"
+  for PKG in ${PIPX_PKGS}; do
+    if [[ ! -d "${HOME}/.local/pipx/venvs/${PKG}" ]];then
+      pipx install ${PKG}
+    fi
+  done
+
+  echo "Installation pkgs cargo"
+  CARGO_PKGS="lychee"
+  for PKG in ${CARGO_PKGS}; do
+    cargo install ${PKG}
+  done
+  asdf reshim rust
+
+  DEB_PKGS="nmap"
+  sudo apt install -y ${DEB_PKGS}
+
+  if [[ ! -d /usr/share/seclists ]]; then
+    sudo git clone --depth 1 https://github.com/danielmiessler/SecLists.git /usr/share/seclists
+  fi
 }
 
 function install_browsers() {
@@ -521,6 +545,6 @@ preseed_test() {
  sudo rm -f ${OUTPUT}
 
  preseed_create ${INPUT} ${PRESEED} ${ISOLINUX} ${GRUB} || return
- 
+
  vboxmanage storageattach ${VM} --storagectl IDE --port 1 --device 0 --type dvddrive --medium ${OUTPUT} && vboxmanage startvm ${VM}
 }
