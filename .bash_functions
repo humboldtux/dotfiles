@@ -143,7 +143,7 @@ function postinstall_10-base() {
 
   sudo apt -y install ${PKGS}
 
-  PIPX_PKGS="gita tldr updog pywal mdcat thefuck youtube-dl"
+  PIPX_PKGS="gita updog pywal mdcat youtube-dl"
   echo "Installation logiciels pipx: ${PIPX_PKGS}"
   for PKG in ${PIPX_PKGS}; do
     if [[ ! -d "${HOME}/.local/pipx/venvs/${PKG}" ]];then
