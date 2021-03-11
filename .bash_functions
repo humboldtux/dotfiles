@@ -204,6 +204,11 @@ function postinstall_10-base() {
   done
   asdf reshim rust
 
+  if [[ ! -d ${HOME}/dev/src/github.com/humboldtux ]]; then
+    mkdir -p ${HOME}/{bin,dev,pkg} \
+             ${HOME}/dev/src/github.com/humboldtux
+  fi
+
   echo "Installation Docker"
   if ! dpkg-query -W -f='${Status}' docker-ce  | grep "ok installed"
   then
