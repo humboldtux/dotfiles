@@ -59,4 +59,8 @@ export BAT_THEME="Coldark-Dark"
 source "${HOME}/.bash_aliases"
 source "${HOME}/.bash_functions"
 
+PATH="${HOME}/dev/src/github.com/humboldtux/scripts":$PATH
+PATH="${HOME}/dev/src/github.com/humboldtux/scripts-priv":$PATH
+export PATH
+
 eval "$(navi widget bash)"
