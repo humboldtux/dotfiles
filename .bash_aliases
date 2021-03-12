@@ -92,9 +92,6 @@ alias cat-md="mdcat"
 
 alias cat-pdf="pdftotext -l 10 -nopgbrk -q --"
 
-#############
-# CSV
-
 alias csv-cat='mlr --icsv --opprint cat'
 
 alias chef-shell-init='[[ -z ${GEM_ROOT+x} ]] && eval "$(chef shell-init bash)"'

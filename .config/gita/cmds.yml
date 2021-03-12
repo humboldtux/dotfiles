@@ -1,0 +1,4 @@
+st_all:
+  cmd: status
+  allow_all: true
+  help: status all repos

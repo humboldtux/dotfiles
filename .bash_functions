@@ -53,3 +53,15 @@ function transfer() {
   curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename "$1") | tee /dev/null;
   echo
 }
+
+function gita-add() {
+  SEARCH="${HOME}/dev/src/github.com/humboldtux"
+  FOUNDS=$(find ${SEARCH} -maxdepth 1 -type d | fzf -m)
+  gita add ${FOUNDS}
+}
+
+function gita-cd() {
+  NAME=$(gita ls | awk 'BEGIN{RS=" "}{$1=$1}1' | fzf)
+  REPODIR=$(gita ls ${NAME})
+  cd ${REPODIR}
+}
