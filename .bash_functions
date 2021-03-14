@@ -65,3 +65,12 @@ function gita-cd() {
   REPODIR=$(gita ls ${NAME})
   cd ${REPODIR}
 }
+
+github_get_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+}
+
+github_dld_latest_release() {
+  DWD=`curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")' | fzf -m`
+  wget -P /tmp ${DWD}
+}
