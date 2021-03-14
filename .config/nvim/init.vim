@@ -44,6 +44,7 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 "Plug 'haishanh/night-owl.vim'
 Plug 'tomasiser/vim-code-dark'
 "Plug 'dylanaraps/wal'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 set termguicolors
