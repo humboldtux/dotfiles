@@ -1,20 +1,5 @@
 #!/bin/bash
 
-#if ls --color -d . &> /dev/null
-#then
-#  alias ls="ls --color=auto"
-#elif ls -G -d . &> /dev/null
-#then
-#  alias ls='ls -G'        # Compact view, show colors
-#fi
-
-# List directory contents
-#alias sl=ls
-#alias la='ls -AF'       # Compact view, show hidden
-#alias ll='ls -al'
-#alias l='ls -a'
-#alias l1='ls -1'
-
 alias lsx='exa'
 alias l='exa -al --color=always --group-directories-first'
 alias la='exa -a --color=always --group-directories-first'
