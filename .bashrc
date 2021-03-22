@@ -37,14 +37,13 @@ source <(kitty + complete setup bash)
 
 eval "$(starship init bash)"
 
-#  ranger --copy-config=all
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 eval "$(direnv hook bash)"
 
 # asdf versions manager
-. ${HOME}/.asdf/asdf.sh
-. ${HOME}/.asdf/completions/asdf.bash
+#. ${HOME}/.asdf/asdf.sh
+#. ${HOME}/.asdf/completions/asdf.bash
 
 source ${HOME}/.config/broot/launcher/bash/br
 
