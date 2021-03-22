@@ -67,10 +67,15 @@ function gita-cd() {
 }
 
 github_get_latest_release() {
-  curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name'
+}
+
+github_get_latest_dwds() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[].browser_download_url'
 }
 
 github_dld_latest_release() {
-  DWD=`curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")' | fzf -m`
-  wget -P /tmp ${DWD}
+  DWD=`github_get_latest_dwds $1 | fzf -m`
+  echo "downloading ${DWD}"
+  wget -nv -P /tmp ${DWD}
 }
