@@ -10,8 +10,6 @@ eval `ssh-agent -s` > /dev/null
 source ${HOME}/.nix-profile/etc/profile.d/nix.sh
 source ${HOME}/.nix-profile/share/bash-completion/bash_completion
 
-PATH=${HOME}/.cargo/bin:$PATH
-
 #HISTORY
 export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
 export HISTSIZE=10000
@@ -38,6 +36,9 @@ eval "$(starship init bash)"
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 eval "$(direnv hook bash)"
+
+. ${HOME}/.asdf/asdf.sh
+. ${HOME}/.asdf/completions/asdf.bash
 
 source ${HOME}/.config/broot/launcher/bash/br
 
