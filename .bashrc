@@ -1,7 +1,4 @@
 #!/bin/bash
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -12,6 +9,8 @@ eval `ssh-agent -s` > /dev/null
 
 source ${HOME}/.nix-profile/etc/profile.d/nix.sh
 source ${HOME}/.nix-profile/share/bash-completion/bash_completion
+
+PATH=${HOME}/.cargo/bin:$PATH
 
 #HISTORY
 export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
@@ -25,7 +24,6 @@ then
 fi
 eval "$(zoxide init bash)"
 
-# FZF
 [[ $- == *i* ]] && source "${HOME}/.nix-profile/share/fzf/completion.bash"
 source ${HOME}/.nix-profile/share/fzf/key-bindings.bash
 
@@ -41,17 +39,12 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 
 eval "$(direnv hook bash)"
 
-# asdf versions manager
-#. ${HOME}/.asdf/asdf.sh
-#. ${HOME}/.asdf/completions/asdf.bash
-
 source ${HOME}/.config/broot/launcher/bash/br
 
 export EDITOR="nvim"
 
 export GOPATH=${HOME}/dev
 export GOBIN=${HOME}/bin
-#export PATH=$GOBIN:$PATH
 
 export BAT_THEME="Coldark-Dark"
 
