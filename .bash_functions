@@ -12,7 +12,7 @@ function separator() {
   printf '%*s\n' $(tput cols) '' | tr ' ' -;
 }
 
-function ssl-showcert() {
+function ssl_showcert() {
   openssl s_client -connect $1:443 -servername $1
 }
 
@@ -39,11 +39,11 @@ function sms_free() {
   curl -s -o /dev/null -w "%{http_code}" -I "https://smsapi.free-mobile.fr/sendmsg?user=${USER}&pass=${PASS}&msg=${1}"
 }
 
-function cat-pdf() {
+function cat_pdf() {
   pdftotext -l 10 -nopgbrk -q -- ${1} - | fmt
 }
 
-function cat-vid() {
+function cat_vid() {
   OUT='/tmp/tmp.jpg'
   ffmpegthumbnailer -i $1 -o $OUT -s 0
   cat-img $OUT
@@ -54,19 +54,19 @@ function transfer() {
   echo
 }
 
-function gita-add() {
+function gita_add() {
   SEARCH="${HOME}/dev/src/github.com/humboldtux"
   FOUNDS=$(find ${SEARCH} -maxdepth 1 -type d | fzf -m)
   gita add ${FOUNDS}
 }
 
-function gita-cd() {
+function gita_cd() {
   NAME=$(gita ls | awk 'BEGIN{RS=" "}{$1=$1}1' | fzf)
   REPODIR=$(gita ls ${NAME})
   cd ${REPODIR}
 }
 
-github_get_latest_release() {
+github_get_latest_version() {
   curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name'
 }
 
@@ -74,8 +74,18 @@ github_get_latest_dwds() {
   curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[].browser_download_url'
 }
 
-github_dld_latest_release() {
-  DWD=`github_get_latest_dwds $1 | fzf -m`
+github_get_latest_dwd() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[].browser_download_url' | grep $2
+}
+
+github_dld_latest_releases() {
+  DWD=$(github_get_latest_dwds $1 | fzf -m)
   echo "downloading ${DWD}"
   wget -nv -P /tmp ${DWD}
+}
+
+github_dld_latest_release() {
+  DWD=$(github_get_latest_dwd $1 $2)
+  echo "downloading ${DWD}"
+  wget -nv ${DWD} -O /tmp/$3
 }
