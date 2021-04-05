@@ -57,3 +57,4 @@ PATH="${HOME}/dev/src/github.com/humboldtux/scripts-priv":$PATH
 export PATH
 
 eval "$(navi widget bash)"
+export NAVI_PATH="${HOME}/dev/src/github.com/humboldtux/cheats-priv:${HOME}/dev/src/github.com/humboldtux/cheats:${HOME}/.local/share/navi/cheats"
