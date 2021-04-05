@@ -89,3 +89,12 @@ github_dld_latest_release() {
   echo "downloading ${DWD}"
   wget -nv ${DWD} -O /tmp/$3
 }
+
+teatime() {
+  if [[ ! $# -eq 1 ]]; then
+    echo "Erreur:  donnez le nombre de minutes, ie:"
+    echo "Exemple: teatime 5"
+    exit 1
+  fi
+  sleep ${1}m && paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga && notify-send "Tea Time!"
+}
