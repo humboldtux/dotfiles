@@ -7,6 +7,7 @@ alias li='exa --icons --color=always --group-directories-first'
 alias ll='exa -l --color=always --group-directories-first'
 alias lg='exa -al --git --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
+alias liso='exa --time-style full-iso'
 
 alias grep='grep --color=auto'
 export GREP_COLOR='1;33'
