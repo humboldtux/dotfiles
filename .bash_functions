@@ -98,3 +98,7 @@ teatime() {
   fi
   sleep ${1}m && paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga && notify-send "Tea Time!"
 }
+
+nmap_ports() {
+  grep ^[0-9] $1 | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//
+}
