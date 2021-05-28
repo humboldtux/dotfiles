@@ -71,3 +71,5 @@ alias cat_pdf="pdftotext -l 10 -nopgbrk -q --"
 alias csv_cat='mlr --icsv --opprint cat'
 
 alias chef_shell_init='[[ -z ${GEM_ROOT+x} ]] && eval "$(chef shell-init bash)"'
+
+alias ssh_kitty='kitty +kitten ssh'
