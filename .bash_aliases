@@ -48,6 +48,9 @@ alias youtube_dl_sub='youtube-dl --all-subs --write-auto-sub'
 alias youtube_dl_most="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 
 alias obsidian='obsidian --no-sandbox'
+
+alias curl_burp='curl -x 127.0.0.1:8080 -k'
+
 ##########Docker#################
 alias dkip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias dkd="docker run -d -P"
