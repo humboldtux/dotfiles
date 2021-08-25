@@ -14,7 +14,7 @@ export GREP_COLOR='1;33'
 
 alias ag='ag --smart-case --pager="less -MIRFX"'
 
-alias pbcopy="xclip -selection clipboard"
+alias pbcopy="xclip -selection clipboard -r"
 alias pbpaste="xclip -selection clipboard -o"
 
 alias topten="history -1000 | getcommands | sort -rn | head"
@@ -76,3 +76,9 @@ alias csv_cat='mlr --icsv --opprint cat'
 alias chef_shell_init='[[ -z ${GEM_ROOT+x} ]] && eval "$(chef shell-init bash)"'
 
 alias ssh_kitty='kitty +kitten ssh'
+
+alias urldecode='python3 -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+
+alias urlencode='python3 -c "import sys, urllib.parse as ul; \
+    print (ul.quote_plus(sys.argv[1]))"'
