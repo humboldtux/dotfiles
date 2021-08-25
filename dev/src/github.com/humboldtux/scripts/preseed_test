@@ -1,0 +1,16 @@
+#!/bin/bash
+
+VM=`vboxmanage list vms | awk '{print $1}' | sed s/\"//g | fzf`
+INPUT=$1
+PRESEED=$2
+ISOLINUX=$3
+GRUB=$4
+OUTPUT="/tmp/debian-nonfree-preseed.iso"
+
+vboxmanage controlvm ${VM} poweroff
+vboxmanage storageattach ${VM} --storagectl IDE --port 1 --device 0 --type dvddrive --medium "emptydrive"
+sudo rm -f ${OUTPUT}
+
+preseed_create ${INPUT} ${PRESEED} ${ISOLINUX} ${GRUB} || exit
+
+vboxmanage storageattach ${VM} --storagectl IDE --port 1 --device 0 --type dvddrive --medium ${OUTPUT} && vboxmanage startvm ${VM}
