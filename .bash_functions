@@ -100,5 +100,7 @@ teatime() {
 }
 
 nmap_ports() {
-  grep ^[0-9] $1 | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//
+  PORTS=`grep ^[0-9] $1 | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//`
+  echo $PORTS | pbcopy
+  echo $PORTS
 }
