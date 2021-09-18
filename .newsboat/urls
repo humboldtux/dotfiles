@@ -1,17 +1,16 @@
 #Linux
 https://www.debian.org/News/news
 https://opensource.com/feed
-# Secu
-https://anchor.fm/s/532bea14/podcast/rss
-https://blog.badsectorlabs.com/feeds/all.atom.xml
 ##Windows
 https://4sysops.com/feed/
 #IUT
 https://blog.chef.io/feed/
-http://www.glpi-project.org/?page=backend-breves&lang=fr
+https://www.glpi-project.org/?page=backend-breves&lang=fr
 http://fusioninventory.github.io/feed.xml
+#Rust
+https://readrust.net/all/feed.rss
+https://kbknapp.dev/atom.xml
 #Loisirs
-http://aquascienceunsa.org/?feed=rss2
 http://lacountea.com/feed/
 http://sports.nice.fr/index.php?page=backend&id_rubrique=68
 http://sports.nice.fr/index.php?page=backend&id_rubrique=203
@@ -21,10 +20,8 @@ http://paris.urbansketchers.org/feeds/posts/default
 http://www.urbansketchers.org/feeds/posts/default/-/Don%27t%20Miss
 http://www.urbansketchers.org/feeds/posts/default/-/blog
 #Nice
-http://leblogduvieuxnice.nicematin.com/atom.xml
 http://www.nice.fr/fr/rss/feed/event
 #Photo
 http://radiofrance-podcast.net/podcast09/rss_12689.xml
 http://radiofrance-podcast.net/podcast09/rss_11981.xml
-#Warez
-http://www.wowebook.org/feed
+
