@@ -82,3 +82,5 @@ alias urldecode='python3 -c "import sys, urllib.parse as ul; \
 
 alias urlencode='python3 -c "import sys, urllib.parse as ul; \
     print (ul.quote_plus(sys.argv[1]))"'
+
+alias my_nmap='sudo nmap -n -P0 -sS -sU -T5 --max-retries=0 --max-rtt-timeout=1000ms     --host-timeout=100 --min-rate=16000     --min-parallelism=4000 --max-parallelism=8000 --max-scan-delay=1ms     --min-hostgroup=1 --max-rate=65536 -p-'
