@@ -1,11 +1,11 @@
-disable = ["gem", "node"]
+disable = ["nix", "gem", "node"]
 no_retry = true
 cleanup = true
 
 [commands]
-"Gem update" = "sudo gem cleanup;sudo gem update;sudo gem cleanup"
+#"Gem update" = "sudo gem cleanup;sudo gem update;sudo gem cleanup"
 "nix-collect-garbage" = "nix-collect-garbage"
 "APT cleanup" = "sudo apt autoremove -y;sudo apt autoclean -y"
-"ASDF reshim rust" = "asdf reshim rust"
+#"ASDF reshim rust" = "asdf reshim rust"
 "Gita Pull" = "gita pull"
 "Needrestart?" = "sudo needrestart"
