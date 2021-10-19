@@ -108,3 +108,23 @@ nmap_ports() {
 my_fix-broken-install () {
   while true; do apt --fix-broken -y install; apt upgrade -y && apt autoremove -y && break;done
 }
+
+blt_pair () {
+  bluetoothctl power on
+  DEVICE=`printf "Soundcore Life Q30 AC:12:2F:9B:3B:6B\nSoundcore Life Q35 AC:12:2F:5D:A5:E6" | fzf`
+  DEV=`echo $DEVICE | awk '{print $NF}'`
+  bluetoothctl trust $DEV
+  bluetoothctl pair $DEV
+}
+
+blt_c () {
+  bluetoothctl power on
+  DEVICE=`bluetoothctl devices | fzf`
+  DEV=`echo $DEVICE | awk '{print $2}'`
+  bluetoothctl connect $DEV
+}
+
+blt_d () {
+  bluetoothctl disconnect
+  bluetoothctl power off
+}
