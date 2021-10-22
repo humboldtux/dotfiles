@@ -26,25 +26,66 @@ syntax on
 let mapleader=","
 
 " =============== Plugins =================
+"https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/plugins.lua
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
-Plug 'takac/vim-hardtime'
-Plug 'itchyny/lightline.vim'
-"Plug 'jiangmiao/auto-pairs'
-Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'christoomey/vim-tmux-navigator'
-"Plug 'ActivityWatch/aw-watcher-vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'lewis6991/gitsigns.nvim'
+
+"Plug 'sheerun/vim-polyglot'
+"Plug 'dense-analysis/ale'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
+Plug 'ray-x/lsp_signature.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+"Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
+
+"Plug 'mhinz/vim-startify' "start screen
+
+"Plug 'junegunn/goyo.vim' "distraction free writing
+"Plug 'junegunn/limelight.vim' "distraction, free writing with goyo
+
+"https://github.com/hoob3rt/lualine.nvim
+"https://github.com/romgrk/barbar.nvim
+Plug 'itchyny/lightline.vim'
+
+" file explorer
+Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+
+Plug 'chipsenkbeil/distant.nvim'
+
+" Terminal
+"https://github.com/akinsho/toggleterm.nvim
+"https://github.com/voldikss/vim-floaterm
+
+" Snippet engine
+Plug 'hrsh7th/vim-vsnip'
+" Snippet completion source for nvim-cmp
+Plug 'hrsh7th/cmp-vsnip'
+
+Plug 'simrat39/rust-tools.nvim'
+
 "Plug 'haishanh/night-owl.vim'
 Plug 'tomasiser/vim-code-dark'
 "Plug 'dylanaraps/wal'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" Debugger"
+" https://github.com/mfussenegger/nvim-dap"
+
 call plug#end()
 
 set termguicolors
@@ -57,6 +98,92 @@ filetype plugin on
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.wiki'}]
 "autocmd FileType vimwiki set ft=markdown
 " gem install gollum
+
+set completeopt=menu,menuone,noselect
+
+lua << EOF
+  local lspkind = require('lspkind')
+  local cmp = require('cmp')
+  -- a revoir
+  cmp.setup({
+    formatting = {
+      format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+    },
+    mapping = {
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'buffer' },
+    }
+  })
+  require('lspconfig').bashls.setup({})
+  require('lspconfig').rust_analyzer.setup({})
+  require('rust-tools').setup(opts)
+
+  require "lsp_signature".setup()
+
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+      enable = true,              -- false will disable the whole extension
+      additional_vim_regex_highlighting = false,
+    },
+  }
+
+  -- you need setup cmp first put this after cmp.setup()
+  require('nvim-autopairs').setup{}
+  require("nvim-autopairs.completion.cmp").setup({
+    map_cr = true, --  map <CR> on insert mode
+    map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+    auto_select = true, -- automatically select the first item
+    insert = false, -- use insert confirm behavior instead of replace
+    map_char = { -- modifies the function or method delimiter by filetypes
+      all = '(',
+      tex = '{'
+      }
+    })
+
+  local actions = require('telescope.actions')
+  require('telescope').setup{
+    defaults = {
+      file_sorter = require('telescope.sorters').get_fzy_sorter,
+      prompt_prefix = ' >',
+      color_devicons = true,
+
+      file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+      grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+      qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+
+      mappings = {
+        -- maapings allows to be able to add custom behavior ontop of the fuzzy findings
+        i = {
+          ["<C-h>"] = "which_key",
+          ["<C-x>"] = false,
+          ["<C-q>"] = actions.send_to_qflist,
+        }
+      }
+    },
+    extensions = {
+      fzy_native = {
+          override_generic_sorter = false,
+          override_file_sorter = true,
+      }
+    }
+  }
+  require('telescope').load_extension('fzy_native')
+
+
+  require('gitsigns').setup {
+    yadm = { enable = true }
+  }
+
+  require'nvim-tree'.setup {}
+EOF
 
 " ================ Turn Off Swap Files ==============
 
@@ -96,7 +223,9 @@ set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
 
-set foldmethod=indent   "fold based on indent
+"set foldmethod=indent   "fold based on indent
+set foldmethod=expr "treesitter-based folding
+set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
@@ -132,3 +261,28 @@ set inccommand=split
 
 " =============== Terminal Mode =====================
 tnoremap <Esc><Esc> <C-\><C-n>
+
+" ==== Undo break points
+"inoremap , ,<c-g>u
+"inoremap . .<c-g>u
+"inoremap ! !<c-g>u
+"inoremap ? ?<c-g>u
+
+" === Telescope ============
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" === Nvim tree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
