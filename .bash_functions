@@ -110,7 +110,9 @@ my_fix-broken-install () {
 }
 
 blt_pair () {
+  sudo rfkill unblock bluetooth
   bluetoothctl power on
+  bluetoothctl scan on
   DEVICE=`printf "Soundcore Life Q30 AC:12:2F:9B:3B:6B\nSoundcore Life Q35 AC:12:2F:5D:A5:E6" | fzf`
   DEV=`echo $DEVICE | awk '{print $NF}'`
   bluetoothctl trust $DEV
