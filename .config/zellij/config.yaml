@@ -1,0 +1,6 @@
+#on_force_close: quit
+simplified_ui: false
+no_pane_frames: true
+theme: default
+default_mode: normal
+disable_mouse_mode: false
