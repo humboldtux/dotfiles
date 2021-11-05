@@ -4,3 +4,10 @@ no_pane_frames: true
 theme: default
 default_mode: normal
 disable_mouse_mode: false
+
+keybinds:
+  normal:
+    - action: [ToggleFocusFullscreen,]
+      key: [Alt: 'f',]
+    - action: [NewTab: ,]
+      key: [Alt: 't',]
