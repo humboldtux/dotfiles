@@ -9,5 +9,7 @@ keybinds:
   normal:
     - action: [ToggleFocusFullscreen,]
       key: [Alt: 'f',]
+    - action: [NewPane: Down,]
+      key: [Alt: 'n',]
     - action: [NewTab: ,]
       key: [Alt: 't',]
