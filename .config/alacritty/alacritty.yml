@@ -1,31 +1,3 @@
-font:
-  normal:
-    family: Hack Nerd Font Mono
-      #style: Regular
-
-  bold:
-    family: Hack Nerd Font Mono
-      #style: Bold
-
-  italic:
-    family: Hack Nerd Font Mono
-      #style: Italic
-
-  bold_italic:
-    family: Hack Nerd Font Mono
-      #style: Bold Italic
-
-# Point size of the font
-size: 14.0
-
-bell:
-  animation: EaseOutExpo
-  color: '0xffffff'
-  duration: 0
-
-mouse:
-  hide_when_typing: true
-
 live_config_reload: true
 
 debug:
@@ -35,10 +7,55 @@ debug:
   print_events: false
   ref_test: false
 
-shell:
-  program: /usr/bin/bash
-    #args:
-    # - --command=${HOME}/.asdf/shims/zellij
+font:
+  normal:
+    family: JetBrainsMono Nerd Font Mono
+  bold:
+    family: JetBrainsMono Nerd Font Mono
+  italic:
+    family: JetBrainsMono Nerd Font Mono
+  bold_italic:
+    family: JetBrainsMono Nerd Font Mono
+
+# Point size of the font
+size: 14.0
+
+window:
+  # If both are `0`, this setting is ignored.
+  dimensions:
+    columns: 0
+    lines: 0
+  
+dynamic_padding: true
+padding:
+    x: 12
+    y: 12
+
+decorations: full
+
+offset:
+    x: 1
+    y: 0
+glyph_offset:
+    x: 0
+    y: 0
+
+draw_bold_text_with_bright_colors: true
+
+bell:
+  animation: EaseOutExpo
+  color: '0xffffff'
+  duration: 0
+
+background_opacity: 1.0
+
+mouse:
+  hide_when_typing: true
+
+# shell:
+#  program: /bin/bash
+#  args:
+#    - --login
 
 # VSCode's integrated terminal default colors
 # Primary and dimmed colors needed
@@ -75,3 +92,12 @@ colors:
     magenta: '#d670d6'
     cyan:    '#29b8db'
     white:   '#e5e5e5'
+
+dynamic_title: true
+
+cursor:
+  style: Block
+  unfocused_hollow: true
+
+mouse_bindings:
+  - { mouse: Right, action: PasteSelection }
