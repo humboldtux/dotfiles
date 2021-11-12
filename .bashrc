@@ -25,11 +25,9 @@ eval "$(zoxide init bash)"
 [[ $- == *i* ]] && source "${HOME}/.nix-profile/share/fzf/completion.bash"
 source ${HOME}/.nix-profile/share/fzf/key-bindings.bash
 
-# wal --theme vscode
+# wal --theme base16-nord
 (cat ${HOME}/.cache/wal/sequences &)
 source ${HOME}/.cache/wal/colors-tty.sh
-
-source <(kitty + complete setup bash)
 
 eval "$(starship init bash)"
 
@@ -47,7 +45,7 @@ export EDITOR="nvim"
 export GOPATH=${HOME}/dev
 export GOBIN=${HOME}/bin
 
-export BAT_THEME="Coldark-Dark"
+export BAT_THEME="Nord"
 
 source "${HOME}/.bash_aliases"
 source "${HOME}/.bash_functions"
