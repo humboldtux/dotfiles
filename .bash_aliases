@@ -89,3 +89,7 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; \
 alias my_nmap='sudo nmap -n -P0 -sS -sU -T5 --max-retries=0 --max-rtt-timeout=1000ms     --host-timeout=100 --min-rate=16000     --min-parallelism=4000 --max-parallelism=8000 --max-scan-delay=1ms     --min-hostgroup=1 --max-rate=65536 -p-'
 
 alias battery='upower -i $(upower -e | grep "BAT")'
+
+alias vpn_dsi='/opt/cisco/anyconnect/bin/vpn'
+alias vpn_dsi_c='/opt/cisco/anyconnect/bin/vpn connect open.unice.fr'
+alias vpn_dsi_d='/opt/cisco/anyconnect/bin/vpn disconnect'
