@@ -6,7 +6,7 @@ return {
 
   font = wezterm.font("JetBrainsMono Nerd Font Mono"),
 
-  --color_scheme = "nord",
+  color_scheme = "nord",
 
   inactive_pane_hsb = {
     saturation = 0.9,
