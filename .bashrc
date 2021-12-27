@@ -26,8 +26,8 @@ eval "$(zoxide init bash)"
 source ${HOME}/.nix-profile/share/fzf/key-bindings.bash
 
 # wal --theme base16-nord
-(cat ${HOME}/.cache/wal/sequences &)
-source ${HOME}/.cache/wal/colors-tty.sh
+#(cat ${HOME}/.cache/wal/sequences &)
+#source ${HOME}/.cache/wal/colors-tty.sh
 
 eval "$(starship init bash)"
 
