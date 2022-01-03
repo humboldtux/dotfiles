@@ -64,7 +64,7 @@ alias dkit="docker run -it -P"
 alias gd="git diff | vim -R -"
 #################################
 
-alias icat="kitty +kitten icat"
+alias icat="wezterm imgcat"
 
 alias cat_img="viu"
 
