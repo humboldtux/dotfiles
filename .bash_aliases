@@ -1,13 +1,11 @@
 #!/bin/bash
 
-alias lsx='exa'
-alias l='exa -al --color=always --group-directories-first'
+alias ls='exa'
 alias la='exa -a --color=always --group-directories-first'
-alias li='exa --icons --color=always --group-directories-first'
-alias ll='exa -l --color=always --group-directories-first'
-alias lg='exa -al --git --color=always --group-directories-first'
-alias lt='exa -aT --color=always --group-directories-first'
+alias ll='exa -la --color=always --group-directories-first'
 alias liso='exa --time-style full-iso'
+
+alias tree="exa --tree --level"
 
 alias grep='grep --color=auto'
 export GREP_COLOR='1;33'
@@ -34,9 +32,7 @@ alias stripr="egrep -v '^[[:space:]]*(#|$)'"
 alias vim='nvim'
 
 alias cat="bat -pp"
-#alias less="bat -p"
-
-alias tree="exa --tree --level"
+alias less="bat -p"
 
 alias ccat='highlight -O ansi'
 
@@ -48,7 +44,6 @@ alias youtube_dl_sub='youtube-dl --all-subs --write-auto-sub'
 alias youtube_dl_most="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 alias yt_sub='yt-dlp --all-subs --write-auto-sub'
 alias yt_most="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
-
 
 alias obsidian='obsidian --no-sandbox'
 
