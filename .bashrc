@@ -3,7 +3,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-eval `ssh-agent -s` > /dev/null
+eval $(ssh-agent -s) >/dev/null
 
 . /usr/share/bash-completion/bash_completion
 
@@ -15,10 +15,9 @@ export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
 export HISTSIZE=10000
 shopt -s histappend #append to bash_history if Terminal quits
 # Recherche avec UpArrow/DownArrow
-if [ -t 1 ]
-then
-    bind '"[A":history-search-backward'
-    bind '"[B":history-search-forward'
+if [ -t 1 ]; then
+	bind '"[A":history-search-backward'
+	bind '"[B":history-search-forward'
 fi
 eval "$(zoxide init bash)"
 
@@ -56,3 +55,5 @@ export PATH
 
 eval "$(navi widget bash)"
 export NAVI_PATH="${HOME}/dev/src/github.com/humboldtux/cheats-priv:${HOME}/dev/src/github.com/humboldtux/cheats:${HOME}/.local/share/navi/cheats"
+
+eval "$(cscli completion bash)"
