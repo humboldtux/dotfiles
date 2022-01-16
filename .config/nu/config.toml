@@ -13,16 +13,17 @@ nonzero_exit_errors = true
 
 startup = [
   #Alias & Funcs
-  "source ~/.config/nu/alias.nu", 
+  "source ~/.config/nu/alias.nu",
   "source ~/.config/nu/func.nu",
-  
+
   #STARSHIP
   "mkdir ~/.cache/starship",
   "starship init nu | save ~/.cache/starship/init.nu",
   "source ~/.cache/starship/init.nu",
 
   #ZOXIDE
-  "zoxide init nushell --hook prompt | save ~/.zoxide.nu", "source ~/.zoxide.nu",
+  "zoxide init nushell --hook prompt | save ~/.zoxide.nu",
+  "source ~/.zoxide.nu",
 
   "neofetch",
 
@@ -32,12 +33,27 @@ startup = [
   #"nu plugin --load (build-string $nu.env.CARGO_HOME /bin)",
 ]
 
-path = ["/home/benben/.asdf/installs/rust/1.56.1/bin", "/home/benben/.nix-profile/bin", "/home/benben/.local/bin", "/home/benben/bin", "/home/benben/dev/src/github.com/humboldtux/scripts-priv", "/home/benben/dev/src/github.com/humboldtux/scripts", "/home/benben/.asdf/shims", "/home/benben/.asdf/bin", "/home/benben/.nix-profile/bin", "/usr/local/bin", "/usr/bin", "/bin", "/usr/local/games", "/usr/games"]
+path = [
+  "/home/benben/.asdf/installs/rust/1.56.1/bin",
+  "/home/benben/.nix-profile/bin",
+  "/home/benben/.local/bin",
+  "/home/benben/bin",
+  "/home/benben/dev/src/github.com/humboldtux/scripts-priv",
+  "/home/benben/dev/src/github.com/humboldtux/scripts",
+  "/home/benben/.asdf/shims",
+  "/home/benben/.asdf/bin",
+  "/home/benben/.nix-profile/bin",
+  "/usr/local/bin",
+  "/usr/bin",
+  "/bin",
+  "/usr/local/games",
+  "/usr/games",
+]
 
 [line_editor]
 edit_mode = "vi"
 bell_style = "none"
-completion_type = "fuzzy"
+#completion_type = "circular"
 
 [textview]
 pager = "less"
