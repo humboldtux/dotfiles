@@ -98,6 +98,7 @@
 [merge]
   summary = true
   verbosity = 1
+  conflictstyle = diff3
   tool = mvimdiff
 [apply]
   whitespace = nowarn
@@ -108,15 +109,22 @@
   # the usual default is to push all branches
   default = upstream
 [core]
+  pager = delta
   autocrlf = false
   editor = vim
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+
 [advice]
   statusHints = false
 [diff]
   # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
   # instead of a/b/c/d as prefixes for patches
   mnemonicprefix = true
-        algorithm = patience
+  colorMoved = default
+  algorithm = patience
 [rerere]
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
