@@ -1,5 +1,7 @@
 #!/bin/bash
 
+alias topgrade='topgrade --disable remotes'
+
 alias ls='exa'
 alias la='exa -a --color=always --group-directories-first'
 alias ll='exa -la --color=always --group-directories-first'
