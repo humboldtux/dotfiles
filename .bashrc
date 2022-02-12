@@ -23,8 +23,11 @@ if [ -t 1 ]; then
 fi
 eval "$(zoxide init bash)"
 
-[[ $- == *i* ]] && source "$HOME/.nix-profile/share/fzf/completion.bash"
-source "$HOME"/.nix-profile/share/fzf/key-bindings.bash
+
+[[ $- == *i* ]] && [ -f "$HOME/.nix-profile/share/fzf/completion.bash" ] && source "$HOME/.nix-profile/share/fzf/completion.bash"
+[[ $- == *i* ]] && [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]  && source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f "$HOME"/.nix-profile/share/fzf/key-bindings.bash ]  && source "$HOME"/.nix-profile/share/fzf/key-bindings.bash
 
 # wal --theme base16-nord
 #(cat ${HOME}/.cache/wal/sequences &)
