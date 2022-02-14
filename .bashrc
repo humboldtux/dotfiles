@@ -3,6 +3,10 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+if [ -d "$HOME/dra/bin" ]; then
+	PATH="$HOME/dra/bin:$PATH"
+fi
+
 eval "$(ssh-agent -s)" >/dev/null
 
 . /usr/share/bash-completion/bash_completion
