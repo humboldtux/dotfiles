@@ -132,7 +132,7 @@
 
 [user]
         name = Benoit Benedetti
-        email = humboldtux@gmail.com
+        email = benoit.benedetti@gmail.com
 [credential]
         helper = cache --timeout=3600
 [github]
