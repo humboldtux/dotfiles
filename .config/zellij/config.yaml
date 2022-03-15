@@ -1,9 +1,8 @@
-#on_force_close: quit
-simplified_ui: false
-no_pane_frames: true
-theme: default
-default_mode: normal
-disable_mouse_mode: false
+pane_frames: false
+#theme: tokyo-night
+#mouse_mode: false
+#default_mode: locked
+#copy_command: "xclip -selection clipboard" # x11
 
 keybinds:
   normal:
@@ -13,3 +12,28 @@ keybinds:
       key: [Alt: 'n',]
     - action: [NewTab: ,]
       key: [Alt: 't',]
+    
+#plugins:
+#    - path: tab-bar
+#      tag: tab-bar
+#    - path: status-bar
+#      tag: status-bar
+#    - path: strider
+#      tag: strider
+# TokyoNight Theme
+# Originally by https://github.com/enkia/tokyo-night-vscode-theme
+
+themes:
+  default:
+    fg: [169,177,214] #A9B1D6
+    bg: [26,27,38] #1A1B26
+    gray: [86,95,137] #565F89
+    black: [65,72,104] #414868
+    red: [247,118,142] #F7768E
+    green: [158,206,106]  #9ECE6A
+    yellow: [224,175,104] #E0AF68
+    blue: [122,162,247]  #7AA2F7
+    magenta: [187,154,247] #BB9AF7
+    cyan: [42,195,222] #2AC3DE
+    white: [192,202,245] #C0CAF5
+    orange: [255,158,100] #FF9E64
