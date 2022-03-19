@@ -137,3 +137,15 @@ blt_d() {
 	bluetoothctl disconnect
 	bluetoothctl power off
 }
+
+ipshow() {
+	if [ $# -eq 0 ]; then
+		IF="eno1"
+	else
+		IF=$1
+	fi
+
+	ip a s "$IF" | grep 'inet ' | awk '{print $2}' | awk -F '/' '{print $1}'
+}
+
+complete -W "$(find /sys/class/net/ -mindepth 1 -printf '%f ')" ipshow
