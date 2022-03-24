@@ -88,3 +88,5 @@ alias battery='upower -i $(upower -e | grep "BAT")'
 alias vpn_dsi='/opt/cisco/anyconnect/bin/vpn'
 alias vpn_dsi_c='/opt/cisco/anyconnect/bin/vpn connect open.unice.fr'
 alias vpn_dsi_d='/opt/cisco/anyconnect/bin/vpn disconnect'
+
+alias jsonify='python -m json.tool'
