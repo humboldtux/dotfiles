@@ -42,8 +42,8 @@ return {
 		{ key = "mapped:z", mods = "LEADER", action = "TogglePaneZoomState" },
 		{ key = "mapped:PageUp", mods = "SHIFT", action = wezterm.action({ ScrollByPage = -1 }) },
 		{ key = "mapped:PageDown", mods = "SHIFT", action = wezterm.action({ ScrollByPage = 1 }) },
-		{ key = "mapped:Tab", mods = "CTRL", action = wezterm.action({ ActivateTabRelative = 1 }) },
-		{ key = "mapped:Tab", mods = "CTRL|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
+		{ key = "Tab", mods = "CTRL", action = wezterm.action({ ActivateTabRelative = 1 }) },
+		{ key = "Tab", mods = "CTRL|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
 		{ key = "mapped:c", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "Clipboard" }) },
 		{ key = "mapped:v", mods = "CTRL|SHIFT", action = wezterm.action({ PasteFrom = "Clipboard" }) },
 		{
