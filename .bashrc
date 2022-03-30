@@ -32,18 +32,11 @@ eval "$(zoxide init bash)"
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f "$HOME"/.nix-profile/share/fzf/key-bindings.bash ] && source "$HOME"/.nix-profile/share/fzf/key-bindings.bash
 
-# wal --theme base16-nord
-#(cat ${HOME}/.cache/wal/sequences &)
-#source ${HOME}/.cache/wal/colors-tty.sh
-
 eval "$(starship init bash)"
 
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 eval "$(direnv hook bash)"
-
-#. ${HOME}/.asdf/asdf.sh
-#. ${HOME}/.asdf/completions/asdf.bash
 
 source "$HOME"/.config/broot/launcher/bash/br
 
@@ -65,5 +58,14 @@ export PATH
 eval "$(navi widget bash)"
 export NAVI_PATH="$HOME/dev/src/github.com/humboldtux/cheats-priv:$HOME/dev/src/github.com/humboldtux/cheats:$HOME/.local/share/navi/cheats"
 
-eval "$(procs --completion-out bash)"
-eval "$(cscli completion bash)"
+if [ -x "$(command -v zellij)" ]; then
+	eval "$(zellij setup --generate-completion bash)"
+fi
+
+if [ -x "$(command -v procs)" ]; then
+	eval "$(procs --completion-out bash)"
+fi
+
+if [ -x "$(command -v cscli)" ]; then
+	eval "$(cscli completion bash)"
+fi
