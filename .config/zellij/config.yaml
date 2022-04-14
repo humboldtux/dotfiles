@@ -12,28 +12,19 @@ keybinds:
       key: [Alt: 'n',]
     - action: [NewTab: ,]
       key: [Alt: 't',]
-    
-#plugins:
-#    - path: tab-bar
-#      tag: tab-bar
-#    - path: status-bar
-#      tag: status-bar
-#    - path: strider
-#      tag: strider
-# TokyoNight Theme
-# Originally by https://github.com/enkia/tokyo-night-vscode-theme
+# Nord theme
 
 themes:
   default:
-    fg: [169,177,214] #A9B1D6
-    bg: [26,27,38] #1A1B26
-    gray: [86,95,137] #565F89
-    black: [65,72,104] #414868
-    red: [247,118,142] #F7768E
-    green: [158,206,106]  #9ECE6A
-    yellow: [224,175,104] #E0AF68
-    blue: [122,162,247]  #7AA2F7
-    magenta: [187,154,247] #BB9AF7
-    cyan: [42,195,222] #2AC3DE
-    white: [192,202,245] #C0CAF5
-    orange: [255,158,100] #FF9E64
+    fg: [216, 222, 233] #D8DEE9
+    bg: [46, 52, 64] #2E3440
+    black: [59, 66, 82] #3B4252
+    red: [191, 97, 106] #BF616A
+    green: [163, 190, 140] #A3BE8C
+    yellow: [235,203,139] #EBCB8B
+    blue: [129, 161, 193] #81A1C1
+    magenta: [180, 142, 173] #B48EAD
+    cyan: [136, 192, 208] #88C0D0
+    white: [229, 233, 240] #E5E9F0
+    orange: [208, 135, 112] #D08770
+
