@@ -1,0 +1,89 @@
+# Install base deb packages
+def "mysetup base pkgs" [] { 
+
+  let pkgs = [
+      atool
+      anacron
+      apticron
+      backupninja
+      bat
+      build-essential
+      clang
+      clang-tools
+      curl
+      detox
+      diffoscope-minimal
+      dkms
+      duf
+      dos2unix
+      docker-clean
+      docker-compose
+      docker.io
+      exa
+      fd-find
+      ffmpeg
+      ffmpegthumbnailer
+      firmware-linux
+      firmware-linux-free
+      firmware-linux-nonfree
+      ftp
+      fzf
+      gdebi
+      golang
+      git
+      gita
+      jq
+      ldap-utils
+      libproxychains4
+      libssl-dev
+      libx11-dev
+      linux-headers-amd64
+      lldb
+      locate
+      mariadb-client
+      miller
+      needrestart
+      neofetch
+      neovim
+      newsboat
+      nodejs
+      npm
+      ntpdate
+      odt2txt
+      openvpn
+      pdftk
+      pipx
+      pkg-config
+      poppler-utils
+      proxychains4
+      putty-tools
+      python3-ldap
+      python3-pil
+      python3-pip
+      python3-venv
+      ranger
+      rdiff-backup
+      ripgrep
+      rsync
+      ruby-dev
+      ruby-notify
+      samba-common
+      shellcheck
+      strace
+      sudo
+      swaks
+      tcpdump
+      tig
+      tre-command
+      tshark
+      unrar
+      vim
+      w3m
+      xorriso
+      yadm
+      yt-dlp
+  ]
+
+  $pkgs | sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install $in
+
+}

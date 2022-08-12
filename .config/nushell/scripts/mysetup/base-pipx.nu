@@ -1,3 +1,4 @@
+# Install base pipx packages
 def "mysetup base pipx" [] {
 
   let pkgs = [
