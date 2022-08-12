@@ -42,13 +42,13 @@ def "nu-getent group" [
     }
 }
 
-let version_nushell = '0.1.0'
+let version_getent = '0.1.0'
 
 # Commande getent pour Nushell
 def "nu-getent" [
   --version, (-v) # Afficher la version
 ] {
   if $version {
-    echo $version_nushell
+    echo $version_getent
   }
 }
