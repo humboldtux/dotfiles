@@ -504,5 +504,3 @@ let-env config = {
 }
 
 source myconfig.nu
-source aliases.nu
-source nu-getent.nu
