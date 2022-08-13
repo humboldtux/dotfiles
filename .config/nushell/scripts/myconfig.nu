@@ -6,3 +6,5 @@ source ~/.zoxide.nu
 
 source aliases.nu
 source nu-getent.nu
+source github.nu
+source teatime.nu
