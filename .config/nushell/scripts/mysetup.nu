@@ -7,3 +7,4 @@ source mysetup/base-mandb.nu
 source mysetup/base-root.nu
 source mysetup/base-pipx.nu
 source mysetup/base-pkgs.nu
+source mysetup/base-nerdfonts.nu
