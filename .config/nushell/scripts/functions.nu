@@ -1,3 +1,7 @@
+source github.nu
+source virtualbox.nu
+source nu-getent.nu
+
 # Trigger alarm
 def "teatime" [
   duration: duration # Duration

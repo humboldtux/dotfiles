@@ -5,7 +5,4 @@ source ~/.cache/starship/init.nu
 source ~/.zoxide.nu
 
 source aliases.nu
-source nu-getent.nu
-source github.nu
-source teatime.nu
-source virtualbox.nu
+source functions.nu
