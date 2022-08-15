@@ -15,10 +15,14 @@ eval "$(ssh-agent -s)" >/dev/null
 
 . /usr/share/bash-completion/bash_completion
 
-source "$HOME"/.nix-profile/etc/profile.d/nix.sh
-source "$HOME"/.nix-profile/share/bash-completion/bash_completion
+if [ -d "$HOME/.nix-profile/" ]; then
+	source "$HOME"/.nix-profile/etc/profile.d/nix.sh
+	source "$HOME"/.nix-profile/share/bash-completion/bash_completion
+fi
 
-source "$HOME"/.cargo/env
+if [ -f "$HOME/.cargo/env" ]; then
+	source "$HOME"/.cargo/env
+fi
 
 #HISTORY
 export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
