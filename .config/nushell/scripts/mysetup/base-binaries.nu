@@ -7,10 +7,19 @@ def "mysetup base binaries" [] {
   fetch (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
   tar --extract -C $bindir --file /tmp/bottom.tgz btm
 
+  echo "Installing Broot"
+  let version = (github latestversion Canop/broot | sed 's/broot v//g')
+  wget -q $"https://github.com/Canop/broot/releases/latest/download/broot_($version).zip" -O /tmp/broot.zip
+  unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save $"($bindir)/broot"
+
   echo "Installing Delta"
   fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
   tar --extract --strip-components 1 -C $bindir --file /tmp/delta.tgz --wildcards --no-anchored '*delta'
 
+  echo "Installing Navi"
+  fetch (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
+  tar --extract -C $bindir --file /tmp/navi.tgz navi
+ 
   echo "Installing Helix"
   wget -q (github latestdownload  helix-editor/helix AppImage$).0 -O $"($bindir)/hx"
 
