@@ -7,6 +7,10 @@ if [ -d "$HOME/dra/bin" ]; then
 	PATH="$HOME/dra/bin:$PATH"
 fi
 
+if [ -d "$HOME/.local/binaries" ]; then
+	PATH="$HOME/.local/binaries:$PATH"
+fi
+
 eval "$(ssh-agent -s)" >/dev/null
 
 . /usr/share/bash-completion/bash_completion

@@ -11,3 +11,11 @@ def "github latestdownloads" [
 ] {
   (fetch $"https://api.github.com/repos/($project)/releases/latest").assets.browser_download_url
 }
+
+# Get Github project latest download url given a pattern
+def "github latestdownload" [
+  project: string # Project name
+  pattern: string # Pattern to search for
+] {
+  github latestdownloads $project | where $it =~ $pattern
+}
