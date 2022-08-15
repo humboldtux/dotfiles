@@ -2,10 +2,10 @@
 
 alias topgrade='topgrade --disable remotes'
 
-alias ls='exa'
-alias la='exa -a --color=always --group-directories-first'
-alias ll='exa -la --color=always --group-directories-first'
-alias liso='exa --time-style full-iso'
+#alias ls='exa'
+#alias la='exa -a --color=always --group-directories-first'
+alias lx='exa -la --color=always --group-directories-first'
+#alias liso='exa --time-style full-iso'
 
 alias grep='grep --color=auto'
 export GREP_COLOR='1;33'
@@ -31,8 +31,8 @@ alias stripr="egrep -v '^[[:space:]]*(#|$)'"
 
 alias vim='nvim'
 
-alias cat="bat -pp"
-alias less="bat -p"
+alias bcat="batcat -pp"
+alias bless="batcat -p"
 
 alias ccat='highlight -O ansi'
 
@@ -69,7 +69,7 @@ alias cat_md="mdcat"
 
 alias cat_pdf="pdftotext -l 10 -nopgbrk -q --"
 
-alias csv_cat='mlr --icsv --opprint cat'
+alias cat_csv='mlr --icsv --opprint cat'
 
 alias chef_shell_init='[[ -z ${GEM_ROOT+x} ]] && eval "$(chef shell-init bash)"'
 
