@@ -13,6 +13,7 @@ def "mysetup base pkgs" [] {
       curl
       detox
       diffoscope-minimal
+      direnv
       dkms
       duf
       dos2unix
@@ -67,11 +68,14 @@ def "mysetup base pkgs" [] {
       rsync
       ruby-dev
       ruby-notify
+      rust-all
       samba-common
       shellcheck
+      shfmt
       strace
       sudo
       swaks
+      sysdig
       tcpdump
       tig
       tre-command
@@ -84,6 +88,6 @@ def "mysetup base pkgs" [] {
       yt-dlp
   ]
 
-  $pkgs | sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install $in
+  $pkgs | sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install $in | ignore
 
 }
