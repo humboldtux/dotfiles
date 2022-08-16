@@ -22,6 +22,8 @@ fi
 
 if [ -f "$HOME/.cargo/env" ]; then
 	source "$HOME"/.cargo/env
+else
+	PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 #HISTORY
