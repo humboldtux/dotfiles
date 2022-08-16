@@ -12,4 +12,6 @@ source mysetup/base-mandb.nu
 source mysetup/base-git.nu
 source mysetup/base-pkgs.nu
 
+source mysetup/desktop-pkgs.nu
+
 source mysetup/multimedia.nu
