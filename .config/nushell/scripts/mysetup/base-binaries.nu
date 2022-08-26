@@ -47,7 +47,7 @@ def "mysetup base binaries" [] {
 
   echo "Installing Wezterm"
   fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
-  sudo apt-get install -qq -y /tmp/wezterm.deb | ignore
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
 
   chmod u+x $"($bindir)/*"
 
