@@ -33,6 +33,7 @@ def "mysetup base pkgs" [] {
       golang
       git
       gita
+      jc
       jq
       ldap-utils
       libproxychains4
