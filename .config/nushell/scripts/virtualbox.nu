@@ -1,3 +1,7 @@
+def "nu-complete virtualbox-vms" [] {
+    vboxmanage list vms | tr -d '"' | lines | parse "{name} {uid}" | get name
+}
+
 # Install VirtualBox
 def "virtualbox install" [] {
   sudo chown root:root /opt
@@ -43,4 +47,20 @@ def "virtualbox guestaddition" [] {
   sudo mount /dev/sr0 /media/cdrom0
   sudo sh /media/cdrom0/VBoxLinuxAdditions.run --nox11
   sudo usermod -aG vboxsf $env.USER
+}
+
+# Configure vm settings
+def "virtualbox vmconfig" [
+  vm: string@"nu-complete virtualbox-vms"
+] {
+  vboxmanage modifyvm $vm --clipboard-mode bidirectional
+  vboxmanage modifyvm $vm --draganddrop bidirectional
+  vboxmanage modifyvm $vm --firmware efi
+  vboxmanage modifyvm $vm --vram 256
+  VBoxManage modifyvm $vm --cpus 4
+  VBoxManage modifyvm $vm --pae on
+  VBoxManage modifyvm $vm --nested-hw-virt on
+  VBoxManage modifyvm $vm --memory 8192
+  VBoxManage modifyvm $vm --audio none
+  VBoxManage sharedfolder add $vm --name vmshare --hostpath ~/Dropbox/vmshare --automount
 }
