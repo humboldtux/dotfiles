@@ -1,5 +1,5 @@
 # Install multimedia apps
-def "mysetup multimedia" [] {
+def "mysetup desktop multimedia" [] {
 
   let pkgs = [
   	guvcview
@@ -16,7 +16,7 @@ def "mysetup multimedia" [] {
   ]
 
   echo "Install Multimedia"
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y | ignore
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y $pkgs | ignore
   sudo dpkg-reconfigure libdvd-pkg
 
   echo "Install songrec"
