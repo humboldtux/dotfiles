@@ -45,7 +45,7 @@ alias youtube_dl_most="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'
 alias yt_sub='yt-dlp --all-subs --write-auto-sub'
 alias yt_most="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 
-alias obsidian='obsidian --no-sandbox'
+#alias obsidian='obsidian --no-sandbox'
 
 alias curl_burp='curl -x 127.0.0.1:8080 -k'
 
