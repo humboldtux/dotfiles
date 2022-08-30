@@ -19,3 +19,4 @@ source mysetup/desktop-flameshot.nu
 source mysetup/desktop-obsidian.nu
 source mysetup/desktop-wayland.nu
 source mysetup/desktop-multimedia.nu
+source mysetup/desktop-teams.nu
