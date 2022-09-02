@@ -26,7 +26,8 @@ def "virtualbox install" [] {
   #bash $"($env.HOME)/dev/src/github.com/humboldtux/scripts/vbextpack"
   virtualbox extpackinstall
 
-  sudo usermod -aG vboxusers $env.USER
+  #sudo usermod -aG vboxusers $env.USER
+  sudo adduser $env.USER vboxusers
 
   sudo wget -q https://raw.githubusercontent.com/gryf/vboxmanage-bash-completion/master/VBoxManage -O /etc/bash_completion.d/VBoxManage
 }
@@ -46,7 +47,8 @@ def "virtualbox extpackinstall" [] {
 def "virtualbox guestaddition" [] {
   sudo mount /dev/sr0 /media/cdrom0
   sudo sh /media/cdrom0/VBoxLinuxAdditions.run --nox11
-  sudo usermod -aG vboxsf $env.USER
+  #sudo usermod -aG vboxsf $env.USER
+  sudo adduser $env.USER vboxsf
 }
 
 # Configure vm settings
