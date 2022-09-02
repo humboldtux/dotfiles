@@ -11,7 +11,6 @@ def "mysetup desktop pkgs" [] {
 	  libcanberra-gtk-module
 	  libreoffice
 	  lightdm-remote-session-freerdp2
-	  nautilus-extension-burner
 	  nautilus-filename-repairer
 	  nautilus-scripts-manager
   	network-manager-pptp-gnome
