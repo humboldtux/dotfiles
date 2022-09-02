@@ -8,6 +8,7 @@ def "mysetup base vpn" [] {
   }
 
   sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install nordvpn
+  sudo adduser $env.USER nordvpn
 
   echo $"su - ($env.USER)"
   echo '/usr/bin/nordvpn set technology nordlynx'
