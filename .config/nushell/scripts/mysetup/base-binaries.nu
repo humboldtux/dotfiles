@@ -3,6 +3,10 @@ def "mysetup base binaries" [] {
   let bindir = $"($env.HOME)/.local/binaries"
   mkdir $bindir
 
+  echo "Installing Wezterm"
+  fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
+
   echo "Installing Bottom"
   fetch (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
   tar --extract -C $bindir --file /tmp/bottom.tgz btm
@@ -11,6 +15,9 @@ def "mysetup base binaries" [] {
   let version = (github latestversion Canop/broot | sed 's/broot v//g')
   wget -q $"https://github.com/Canop/broot/releases/latest/download/broot_($version).zip" -O /tmp/broot.zip
   unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save $"($bindir)/broot"
+  mkdir ~/.config/broot/launcher/bash
+  broot --print-shell-function bash | save ~/.config/broot/launcher/bash/br
+  broot --set-install-state installed
 
   echo "Installing Delta"
   fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
@@ -44,10 +51,6 @@ def "mysetup base binaries" [] {
   echo "Installing Zoxide"
   fetch (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
   tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide
-
-  echo "Installing Wezterm"
-  fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
 
   chmod u+x $"($bindir)/*"
 
