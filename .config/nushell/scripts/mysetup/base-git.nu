@@ -1,11 +1,12 @@
 # Configure Git
 def "mysetup base git" [] { 
-  git config --global pull.ff only
-  git config --global push.autoSetupRemote true
+  #git config --global pull.ff only
+  #git config --global push.autoSetupRemote true
 
-  cd ~/dev/src/github.com/humboldtux/scripts
-  git remote set-url origin git@github.com:humboldtux/scripts.git
-  gita add  ~/dev/src/github.com/humboldtux/scripts
+  if ( not ('~/dev/src/github.com/humboldtux/scripts' | path exists)) {
+    git clone git@github.com:humboldtux/scripts.git ~/dev/src/github.com/humboldtux/scripts
+  }
+  gita add ~/dev/src/github.com/humboldtux/scripts
 
   if ( not ('~/dev/src/github.com/humboldtux/cheats' | path exists)) {
     git clone -q git@github.com:humboldtux/cheats.git ~/dev/src/github.com/humboldtux/cheats
