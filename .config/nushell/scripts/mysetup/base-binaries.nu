@@ -2,6 +2,7 @@ def "mysetup base binaries" [] {
 
   let bindir = $"($env.HOME)/.local/binaries"
   mkdir $bindir
+  let-env PATH = ($env.PATH | split row (char esep) | prepend $bindir)
 
   echo "Installing Wezterm"
   fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
@@ -15,6 +16,7 @@ def "mysetup base binaries" [] {
   let version = (github latestversion Canop/broot | sed 's/broot v//g')
   wget -q $"https://github.com/Canop/broot/releases/latest/download/broot_($version).zip" -O /tmp/broot.zip
   unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save $"($bindir)/broot"
+  chmod +x $"($bindir)/broot"
   mkdir ~/.config/broot/launcher/bash
   broot --print-shell-function bash | save ~/.config/broot/launcher/bash/br
   broot --set-install-state installed
