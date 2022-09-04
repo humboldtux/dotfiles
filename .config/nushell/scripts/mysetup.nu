@@ -21,3 +21,10 @@ source mysetup/desktop-obsidian.nu
 source mysetup/desktop-wayland.nu
 source mysetup/desktop-multimedia.nu
 source mysetup/desktop-teams.nu
+
+source mysetup/pentest-pkgs.nu
+source mysetup/pentest-binaries.nu
+source mysetup/pentest-go.nu
+source mysetup/pentest-pipx.nu
+source mysetup/pentest-gem.nu
+source mysetup/pentest-repos.nu
