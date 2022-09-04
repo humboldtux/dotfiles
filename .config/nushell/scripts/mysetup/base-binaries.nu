@@ -1,3 +1,4 @@
+# Install base binaries
 def "mysetup base binaries" [] {
 
   let bindir = $"($env.HOME)/.local/binaries"
