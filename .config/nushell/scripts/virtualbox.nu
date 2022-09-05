@@ -36,11 +36,11 @@ def "virtualbox install" [] {
 def "virtualbox extpackinstall" [] {
   let version = (virtualbox --help | head -n 1 | awk '{print $NF} ' | sed s/v//g | str trim)
 
-  echo "Downloading extpack"
-  wget -q $"https://download.virtualbox.org/virtualbox/$(version)/Oracle_VM_VirtualBox_Extension_Pack-($version).vbox-extpack" -O /tmp/Oracle_VM_VirtualBox_Extension_Pack-$(version).vbox-extpack
+  echo $"Downloading extpack ($version)"
+  curl -sSL $"https://download.virtualbox.org/virtualbox/($version)/Oracle_VM_VirtualBox_Extension_Pack-($version).vbox-extpack" -o $"/tmp/Oracle_VM_VirtualBox_Extension_Pack-($version).vbox-extpack"
 
-  echo "Installing extpack"
-  sudo VBoxManage extpack install --replace --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c $"/tmp/Oracle_VM_VirtualBox_Extension_Pack-($version).vbox-extpack"
+  echo $"Installing extpack ($version)"
+  sudo VBoxManage extpack install --replace --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c $"/tmp/Oracle_VM_VirtualBox_Extension_Pack-($version).vbox-extpack" | ignore
 }
 
 # Install guest additions on VM
