@@ -51,6 +51,10 @@ def "mysetup base binaries" [] {
   echo "Installing Viu"
   wget -q https://github.com/atanunq/viu/releases/latest/download/viu -O $"($bindir)/viu"
 
+  echo "Installing Zellij"
+  curl -sSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz -o /tmp/zellij.tgz
+  tar --extract -C $bindir --file /tmp/zellij.tgz zellij
+
   echo "Installing Zoxide"
   fetch (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
   tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide
