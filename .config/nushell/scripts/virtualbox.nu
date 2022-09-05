@@ -4,7 +4,7 @@ def "nu-complete virtualbox-vms" [] {
 
 # Install VirtualBox
 def "virtualbox install" [] {
-  sudo chown root:root /opt
+  #sudo chown root:root /opt
 
   echo "Installing Deps"
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y dkms build-essential linux-headers-amd64 linux-kbuild-* | ignore
