@@ -4,10 +4,10 @@ def "mysetup base vpn" [] {
   if (not ("/etc/apt/sources.list.d/nordvpn.list" | path exists)) {
     sudo wget -q https://repo.nordvpn.com/gpg/nordvpn_public.asc -O /etc/apt/trusted.gpg.d/nordvpn_public.asc
     echo "deb https://repo.nordvpn.com/deb/nordvpn/debian stable main" | sudo tee /etc/apt/sources.list.d/nordvpn.list
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y update
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y update | ignore
   }
 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install nordvpn
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install nordvpn | ignore
   sudo adduser $env.USER nordvpn
 
   echo $"su - ($env.USER)"
