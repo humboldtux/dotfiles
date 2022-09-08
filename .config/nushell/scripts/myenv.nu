@@ -6,5 +6,5 @@ if ($"($env.HOME)/.local/binaries/starship" | path exists) {
 
 #https://github.com/ajeetdsouza/zoxide#installation
 if ($"($env.HOME)/.local/binaries/zoxide" | path exists) {
-  zoxide init nushell --hook prompt | save ~/.zoxide.nu
+  zoxide init nushell | save ~/.zoxide.nu
 }
