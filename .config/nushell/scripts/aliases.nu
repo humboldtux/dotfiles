@@ -58,3 +58,5 @@ alias vpn_dsi_c = /opt/cisco/anyconnect/bin/vpn connect open.unice.fr
 alias vpn_dsi_d = /opt/cisco/anyconnect/bin/vpn disconnect
 
 alias jsonify = python3 -m json.tool
+
+alias mount = (jc mount | from json)
