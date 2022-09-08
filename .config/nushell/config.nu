@@ -231,8 +231,15 @@ let light_theme = {
     shape_nothing: light_cyan
 }
 
+# External completer example
+# let carapace_completer = {|spans| 
+#     carapace $spans.0 nushell $spans | from json
+# }
+
+
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
+  external_completer: $nothing # check 'carapace_completer' above to as example
   filesize_metric: false
   table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
   use_ls_colors: true
@@ -257,7 +264,6 @@ let-env config = {
   case_sensitive_completions: false # set to true to enable case-sensitive completions
   enable_external_completion: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
   max_external_completion_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-
   # A strategy of managing table view in case of limited space.
   table_trim: {
     methodology: wrapping, # truncating
@@ -266,6 +272,8 @@ let-env config = {
     # A suffix which will be used with 'truncating' methodology
     # truncating_suffix: "..."
   }
+  show_banner: false # true or false to enable or disable the banner
+  show_clickable_links_in_ls: true # true or false to enable or disable clickable links in the ls listing. your terminal has to support links.
 
   hooks: {
     pre_prompt: [{
