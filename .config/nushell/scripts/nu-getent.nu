@@ -1,25 +1,25 @@
-# open /etc/passwd | lines | parse "{login}:{password}:{uid}:{gid}:{gecos}:{homedir}:{shell}" | get login | str collect ' '
+# open /etc/passwd | lines | parse "{username}:{password}:{uid}:{gid}:{comment}:{home}:{shell}" | get username | str collect ' '
 
-def "nu-complete login-uid" [] {
+def "nu-complete username-uid" [] {
   open /etc/passwd
   | lines
-  | parse "{login}:{password}:{uid}:{gid}:{gecos}:{homedir}:{shell}"
-  | get login uid
+  | parse "{username}:{password}:{uid}:{gid}:{comment}:{home}:{shell}"
+  | get username uid
   | flatten
 }
 
-def common-login-uid [] { ["root", "daemon", "mail", "0", "1", "8" ] }
+def common-username-uid [] { ["root", "daemon", "mail", "0", "1", "8" ] }
 
 # Sous-commande password de getent pour Nushell
 def "nu-getent passwd" [
-  #key?: string@"nu-complete login" # Clé à rechercher
-  key?: string@"nu-complete login-uid" # Clé à rechercher
+  #key?: string@"nu-complete username" # Clé à rechercher
+  key?: string@"nu-complete username-uid" # Clé à rechercher
 ] {
-  let data = (open /etc/passwd | lines | parse "{login}:{password}:{uid}:{gid}:{gecos}:{homedir}:{shell}")
-    if ($key|empty?) {
+  let data = (open /etc/passwd | lines | parse "{username}:{password}:{uid}:{gid}:{comment}:{home}:{shell}")
+    if ($key|is-empty) {
       $data
     } else {
-      $data | where login == $key or uid == $key
+      $data | where username == $key or uid == $key
     }
 }
 
@@ -35,7 +35,7 @@ def "nu-getent group" [
   key?: string@"nu-complete group" #Clé à rechercher 
 ] {
   let data = (open /etc/group | lines | parse "{group}:{password}:{gid}:{members}")
-    if ($key|empty?) {
+    if ($key|is-empty) {
       $data
     } else {
       $data | where group == $key or gid == $key
