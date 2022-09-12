@@ -18,5 +18,15 @@ let-env config = {
   }
 }
 
+let external_completer = {|spans|
+  {
+    $spans.0: {carapace $spans.0 nushell $spans | from json } # default
+  } | get $spans.0 | each {|it| do $it}
+}
+
+let-env config = {
+  external_completer: $external_completer
+}
+
 source aliases.nu
 source functions.nu

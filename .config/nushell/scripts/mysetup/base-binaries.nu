@@ -22,6 +22,10 @@ def "mysetup base binaries" [] {
   broot --print-shell-function bash | save ~/.config/broot/launcher/bash/br
   broot --set-install-state installed
 
+  echo "Installing Carapace"
+  fetch (github latestdownload rsteube/carapace-bin Linux_x86_64.tar.gz).0 -o /tmp/carapace.tgz
+  tar --extract -C $bindir --file /tmp/carapace.tgz carapace
+
   echo "Installing Delta"
   fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
   tar --extract --strip-components 1 -C $bindir --file /tmp/delta.tgz --wildcards --no-anchored '*delta'
