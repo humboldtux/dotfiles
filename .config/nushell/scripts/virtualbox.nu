@@ -65,4 +65,5 @@ def "virtualbox vmconfig" [
   VBoxManage modifyvm $vm --memory 8192
   VBoxManage modifyvm $vm --audio none
   VBoxManage sharedfolder add $vm --name vmshare --hostpath ~/Dropbox/vmshare --automount
+  VBoxManage sharedfolder add $vm --name oshare --hostpath ~/OneDrive/Share --automount
 }
