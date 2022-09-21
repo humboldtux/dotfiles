@@ -1,0 +1,60 @@
+#theme = "grv"
+theme = "nord"
+
+[keys.normal]
+# ";" = "command_mode"
+# ":" = "collapse_selection"
+"backspace" = "file_picker"
+#"A-x" = ["extend_to_line_bounds", "trim_selections"]
+#"g" = { "l" = "extend_to_line_end", "h" = "extend_to_line_start" }
+#"ret" = ":write"
+#"g" = { "l" = "extend_to_line_end", "h" = "extend_to_line_start" , "e"="goto_file_end" }
+#"C-r" = ":reload"
+
+[keys.normal.space]
+"x" = ":buffer-close"
+
+[keys.normal.space.e]
+"e" = ":config-open"
+"r" = ":config-reload"
+
+[keys.select]
+# till eof in select mode, to beginning of last line in normal mode
+#"g" = { "e" = "goto_file_end" }
+
+[keys.insert]
+#"j" = { "k" = "normal_mode" }
+#"C-t" = "indent"
+#"C-d" = "unindent"
+
+[editor]
+#line-number = "relative"
+scrolloff = 3
+idle-timeout = 50
+rulers = [100, 120]
+#mouse = false
+completion-trigger-len = 1
+auto-completion = true
+cursorline = true
+indent-guides.render = true
+# diff-symbols = ["▍", "▍", "▁", "▔"]
+
+[editor.file-picker]
+hidden = false
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+#left = ["mode", "file-name", "file-type", "file-line-ending", "file-encoding", "spinner"]
+#center = ["diagnostics"]
+#right = ["position", "spacer", "spacer", "position-percentage"]
+
+[editor.whitespace.render]
+tab = "all"
+nbsp = "all"
