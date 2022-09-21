@@ -12,6 +12,7 @@ source mysetup/base-crowdsec.nu
 source mysetup/base-root.nu
 source mysetup/base-mandb.nu
 source mysetup/base-vpn.nu
+source mysetup/base-lsp.nu
 
 source mysetup/desktop-pkgs.nu
 source mysetup/desktop-browsers.nu
