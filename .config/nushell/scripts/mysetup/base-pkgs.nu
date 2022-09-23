@@ -33,6 +33,7 @@ def "mysetup base pkgs" [] {
       golang
       git
       gita
+      iotop-c
       jc
       jq
       ldap-utils
@@ -51,6 +52,7 @@ def "mysetup base pkgs" [] {
       nodejs
       npm
       ntpdate
+      nvme-cli
       odt2txt
       openvpn
       pdftk
