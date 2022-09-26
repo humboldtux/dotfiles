@@ -23,6 +23,10 @@ def "mysetup base lsp" [] {
   echo "Install Taplo"
   fetch (github latestdownload tamasfe/taplo full-x86_64-unknown-linux-gnu).0 -o /tmp/taplo.tgz
   tar --extract -C $bindir --file /tmp/taplo.tgz taplo
-  
+
+  echo "Install lldb"
+  sudo DEBIAN_FRONTEND=noninteractive apt install -qq -y lldb | ignore
+  sudo ln -s /usr/lib/llvm-14/bin/lldb-vscode /usr/bin/lldb-vscode
+
   chmod +x  ~/.local/binaries/*
 }
