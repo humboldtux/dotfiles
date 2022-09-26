@@ -9,8 +9,6 @@ source mysetup/base-system.nu
 source mysetup/base-go.nu
 source mysetup/base-pipx.nu
 source mysetup/base-crowdsec.nu
-source mysetup/base-root.nu
-source mysetup/base-mandb.nu
 source mysetup/base-vpn.nu
 source mysetup/base-lsp.nu
 
