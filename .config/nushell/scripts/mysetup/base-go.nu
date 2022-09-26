@@ -6,6 +6,8 @@ def "mysetup base go" [] {
   let-env GOPATH = $"($env.HOME)/dev"
   let-env GOBIN = $"($env.HOME)/go/bin"
   
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install golang | ignore
+
   let pkgs = [
 	  github.com/akavel/up@latest
 	  github.com/claudiodangelis/qrcp@latest
