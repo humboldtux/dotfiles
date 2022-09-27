@@ -37,12 +37,28 @@ def "mysetup base binaries" [] {
   echo "Installing Helix"
   wget -q (github latestdownload  helix-editor/helix AppImage$).0 -O $"($bindir)/hx"
 
+  echo "Installing Kondo"
+  curl -sSL https://github.com/tbillington/kondo/releases/latest/download/kondo-x86_64-unknown-linux-gnu.tar.gz -o /tmp/kondo.tgz
+  tar --extract -C $bindir --file /tmp/kondo.tgz kondo
+
+  echo "Installing LazyGit"
+  fetch (github latestdownload  jesseduffield/lazygit Linux_x86_64).0 -o /tmp/lazygit.tgz
+  tar --extract -C $bindir --file /tmp/lazygit.tgz lazygit
+
+  echo "Installing ncdu"
+  curl -sSL https://dev.yorhel.nl/download/ncdu-2.1.2-linux-x86_64.tar.gz -o /tmp/ncdu.tgz
+  tar --extract -C $bindir --file /tmp/ncdu.tgz ncdu
+
   echo "Installing Neovim"
   wget -q https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -O $"($bindir)/nvim"
 
   echo "Installing Nushell"
-  fetch (github latestdownload  nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
+  fetch (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
   tar --extract -C $bindir --file /tmp/nushell.tgz nu
+
+  echo "Installing qrcp"
+  fetch (github latestdownload claudiodangelis/qrcp linux_x86_64.tar.gz).0 -o /tmp/qrcp.tgz
+  tar --extract -C $bindir --file /tmp/qrcp.tgz qrcp
 
   echo "Installing Starship"
   wget -q https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz -O /tmp/starship.tgz
@@ -51,6 +67,9 @@ def "mysetup base binaries" [] {
   echo "Installing Topgrade"
   fetch (github latestdownload  r-darwish/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
   tar --extract -C $bindir --file /tmp/topgrade.tgz topgrade
+
+  echo "Installing up"
+  curl -sSL https://github.com/akavel/up/releases/latest/download/up -o $"($bindir)/up"
 
   echo "Installing Viu"
   wget -q https://github.com/atanunq/viu/releases/latest/download/viu -O $"($bindir)/viu"

@@ -33,6 +33,9 @@ def "mysetup base pkgs" [] {
       golang
       git
       gita
+      htop
+      iftop
+      iotop
       iotop-c
       jc
       jq
