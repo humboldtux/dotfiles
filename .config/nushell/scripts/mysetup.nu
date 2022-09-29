@@ -11,6 +11,7 @@ source mysetup/base-pipx.nu
 source mysetup/base-crowdsec.nu
 source mysetup/base-vpn.nu
 source mysetup/base-nvim.nu
+source mysetup/base-onedrive.nu
 source mysetup/base-lsp.nu
 
 source mysetup/desktop-pkgs.nu

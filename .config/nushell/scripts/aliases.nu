@@ -60,3 +60,5 @@ alias vpn_dsi_d = /opt/cisco/anyconnect/bin/vpn disconnect
 alias jsonify = python3 -m json.tool
 
 alias mount = (jc mount | from json)
+
+alias onedrive_log = journalctl --user-unit onedrive -q -f

@@ -90,3 +90,5 @@ alias vpn_dsi_c='/opt/cisco/anyconnect/bin/vpn connect open.unice.fr'
 alias vpn_dsi_d='/opt/cisco/anyconnect/bin/vpn disconnect'
 
 alias jsonify='python -m json.tool'
+
+alias onedrive_log='journalctl --user-unit onedrive -q -f'
