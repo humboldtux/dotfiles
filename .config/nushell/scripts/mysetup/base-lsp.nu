@@ -2,7 +2,7 @@
 def "mysetup base lsp" [] {
   
   let bindir = $"($env.HOME)/.local/binaries"
-  
+
   echo "Install bash"
   sudo npm i -g bash-language-server | ignore
 
@@ -25,8 +25,9 @@ def "mysetup base lsp" [] {
   tar --extract -C $bindir --file /tmp/taplo.tgz taplo
 
   echo "Install lldb"
-  sudo DEBIAN_FRONTEND=noninteractive apt install -qq -y lldb | ignore
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y lldb | ignore
   sudo ln -s /usr/lib/llvm-14/bin/lldb-vscode /usr/bin/lldb-vscode
 
   chmod +x  ~/.local/binaries/*
+
 }
