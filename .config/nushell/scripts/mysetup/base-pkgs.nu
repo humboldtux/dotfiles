@@ -39,6 +39,7 @@ def "mysetup base pkgs" [] {
       iotop-c
       jc
       jq
+      kmon
       ldap-utils
       libproxychains4
       libssl-dev
