@@ -9,6 +9,10 @@ def "mysetup base binaries" [] {
   fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
 
+  echo "Installing Bandwhich"
+  fetch (github latestdownload imsnif/bandwhich x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/bandwhich.tgz
+  tar --extract -C $bindir --file /tmp/bandwhich.tgz bandwhich
+
   echo "Installing Bottom"
   fetch (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
   tar --extract -C $bindir --file /tmp/bottom.tgz btm
