@@ -90,16 +90,7 @@
   svnl = svn log --oneline --show-commit
 [format] 
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
-[mergetool]
-  prompt = false
-[mergetool "mvimdiff"]
-  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
-  keepbackup=false
-[merge]
-  summary = true
-  verbosity = 1
-  conflictstyle = diff3
-  tool = mvimdiff
+
 [apply]
   whitespace = nowarn
 [branch]
@@ -109,23 +100,42 @@
   # the usual default is to push all branches
   default = upstream
   autoSetupRemote = true
+
 [core]
   pager = delta
   autocrlf = false
   editor = vim
+
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
+[add.interactive]
+  useBuiltin = false # required for git 2.37.0
+
 [delta]
-    navigate = true  # use n and N to move between diff sections
+  navigate = true  # use n and N to move between diff sections
+  light = false    # set to true if you're in a terminal w/ a light background color
 
 [advice]
   statusHints = false
+
+[merge]
+  summary = true
+  verbosity = 1
+  conflictstyle = diff3
+  tool = mvimdiff
+[mergetool]
+  prompt = false
+[mergetool "mvimdiff"]
+  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+  keepbackup=false
+
 [diff]
   # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
   # instead of a/b/c/d as prefixes for patches
   mnemonicprefix = true
   colorMoved = default
   algorithm = patience
+
 [rerere]
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
