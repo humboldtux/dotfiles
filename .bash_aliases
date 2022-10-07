@@ -91,4 +91,4 @@ alias vpn_dsi_d='/opt/cisco/anyconnect/bin/vpn disconnect'
 
 alias jsonify='python -m json.tool'
 
-alias onedrive_log='journalctl --user-unit onedrive -q -f'
+alias onedrive_log='journalctl --user-unit onedrive -q -f | lnav'

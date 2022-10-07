@@ -46,6 +46,7 @@ def "mysetup base pkgs" [] {
       libx11-dev
       linux-headers-amd64
       lldb
+      lnav
       locate
       mariadb-client
       miller
