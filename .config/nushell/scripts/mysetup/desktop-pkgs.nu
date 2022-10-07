@@ -5,6 +5,11 @@ def "mysetup desktop pkgs" [] {
     calibre
     copyq
 	  flameshot
+	  fonts-arphic-ukai
+	  fonts-arphic-uming
+	  fonts-ipafont-mincho
+	  fonts-ipafont-gothic
+	  fonts-unfonts-core
 	  freerdp2-x11
 	  icedtea-netx
 	  keychain
