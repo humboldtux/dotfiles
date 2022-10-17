@@ -34,9 +34,9 @@ def "mysetup base binaries" [] {
   fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
   tar --extract --strip-components 1 -C $bindir --file /tmp/delta.tgz --wildcards --no-anchored '*delta'
 
-  echo "Installing Navi"
-  fetch (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
-  tar --extract -C $bindir --file /tmp/navi.tgz navi
+  echo "Installing Gum"
+  fetch (github latestdownload charmbracelet/gum linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
+  tar --extract -C $bindir --file /tmp/gum.tgz gum
  
   echo "Installing Helix"
   wget -q (github latestdownload  helix-editor/helix AppImage$).0 -O $"($bindir)/hx"
@@ -49,6 +49,10 @@ def "mysetup base binaries" [] {
   fetch (github latestdownload  jesseduffield/lazygit Linux_x86_64).0 -o /tmp/lazygit.tgz
   tar --extract -C $bindir --file /tmp/lazygit.tgz lazygit
 
+  echo "Installing Navi"
+  fetch (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
+  tar --extract -C $bindir --file /tmp/navi.tgz navi
+ 
   echo "Installing ncdu"
   curl -sSL https://dev.yorhel.nl/download/ncdu-2.1.2-linux-x86_64.tar.gz -o /tmp/ncdu.tgz
   tar --extract -C $bindir --file /tmp/ncdu.tgz ncdu
