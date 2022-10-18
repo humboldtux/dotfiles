@@ -2,7 +2,7 @@
 def "github latestversion" [
   project: string # Project name
 ] {
-  (fetch $"https://api.github.com/repos/($project)/releases/latest").name
+  curl -sSL -w "%{url_effective}\n" -I $"https://github.com/($project)/releases/latest" -o /dev/null | path basename
 }
 
 # Get Github project latest downloads url
