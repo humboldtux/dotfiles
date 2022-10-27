@@ -140,7 +140,7 @@ def "mysetup base binaries" [
 
   if ('topgrade' in $choices) {
     echo "Installing Topgrade"
-    fetch (github latestdownload  r-darwish/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
+    fetch (github latestdownload topgrade-rs/topgrade x86_64-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
     tar --extract -C $bindir --file /tmp/topgrade.tgz topgrade
   }
 
