@@ -13,6 +13,7 @@ def "mysetup base binaries" [
     broot
     carapace
     delta
+    dust
     gum
     helix
     kondo
@@ -78,6 +79,12 @@ def "mysetup base binaries" [
     echo "Installing Delta"
     fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
     tar --extract --strip-components 1 -C $bindir --file /tmp/delta.tgz --wildcards --no-anchored '*delta'
+  }
+
+  if ('dust' in $choices) {
+    echo "Installing Dust"
+    fetch (github latestdownload bootandy/dust x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/dust.tgz
+    tar --extract --strip-components 1 -C $bindir --file /tmp/dust.tgz --wildcards --no-anchored '*dust'
   }
 
   if ('gum' in $choices) {
