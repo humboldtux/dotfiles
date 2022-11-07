@@ -61,7 +61,7 @@ def "mysetup base binaries" [
   if ('broot' in $choices) {
     echo "Installing Broot"
     let version = (github latestversion Canop/broot | sed 's/broot v//g')
-    wget -q $"https://github.com/Canop/broot/releases/latest/download/broot_($version).zip" -O /tmp/broot.zip
+    fetch (github latestdownload  Canop/broot zip).0 -o /tmp/broot.zip
     unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save $"($bindir)/broot"
     chmod +x $"($bindir)/broot"
     mkdir ~/.config/broot/launcher/bash
@@ -147,7 +147,7 @@ def "mysetup base binaries" [
 
   if ('topgrade' in $choices) {
     echo "Installing Topgrade"
-    fetch (github latestdownload topgrade-rs/topgrade x86_64-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
+    fetch (github latestdownload topgrade-rs/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
     tar --extract -C $bindir --file /tmp/topgrade.tgz topgrade
   }
 
