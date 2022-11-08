@@ -3,6 +3,7 @@ def "mysetup base system" [] {
 
   echo "Disable root account"
   sudo passwd -l root
+  sudo usermod -L -e 1 root
 
   echo "Disable sleep"
   sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
