@@ -8,7 +8,6 @@ alias lx='exa -la --color=always --group-directories-first'
 #alias liso='exa --time-style full-iso'
 
 alias grep='grep --color=auto'
-export GREP_COLOR='1;33'
 
 alias ag='ag --smart-case --pager="less -MIRFX"'
 
