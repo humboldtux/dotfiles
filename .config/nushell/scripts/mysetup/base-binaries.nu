@@ -130,7 +130,7 @@ def "mysetup base binaries" [
   if ('nushell' in $choices) {
     echo "Installing Nushell"
     fetch (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
-    tar --extract -C $bindir --file /tmp/nushell.tgz nu
+    tar --extract --strip-components 1 -C $bindir --file /tmp/nushell.tgz --wildcards --no-anchored '*nu'
   }
 
   if ('qrcp' in $choices) {

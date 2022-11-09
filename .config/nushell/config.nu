@@ -61,7 +61,7 @@ module completions {
     --no-show-forced-updates                      # Don't check if a branch is force-updated
     -4                                            # Use IPv4 addresses, ignore IPv6 addresses
     -6                                            # Use IPv6 addresses, ignore IPv4 addresses
-    --help                                        # Display this help message
+    --help                                        # Display the help message for this command
   ]
 
   # Check out git branches and files
@@ -88,7 +88,7 @@ module completions {
     -b: string                                      # create and checkout a new branch
     -B: string                                      # create/reset and checkout a branch
     -l                                              # create reflog for new branch
-    --help                                          # Display this help message
+    --help                                          # Display the help message for this command
   ]
 
   # Push changes
@@ -120,7 +120,7 @@ module completions {
     --tags                                          # push tags (can't be used with --all or --mirror)
     --thin                                          # use thin pack
     --verbose(-v)                                   # be more verbose
-    --help                                          # Display this help message
+    --help                                          # Display the help message for this command
   ]
 }
 
@@ -173,11 +173,13 @@ let dark_theme = {
     shape_record: cyan_bold
     shape_block: blue_bold
     shape_filepath: cyan
+    shape_directory: cyan
     shape_globpattern: cyan_bold
     shape_variable: purple
     shape_flag: blue_bold
     shape_custom: green
     shape_nothing: light_cyan
+    shape_matching_brackets: { attr: u }
 }
 
 let light_theme = {
@@ -224,16 +226,18 @@ let light_theme = {
     shape_record: cyan_bold
     shape_block: blue_bold
     shape_filepath: cyan
+    shape_directory: cyan
     shape_globpattern: cyan_bold
     shape_variable: purple
     shape_flag: blue_bold
     shape_custom: green
     shape_nothing: light_cyan
+    shape_matching_brackets: { attr: u }
 }
 
 # External completer example
 let carapace_completer = {|spans| 
-     carapace $spans.0 nushell $spans | from json
+    carapace $spans.0 nushell $spans | from json
 }
 
 
@@ -274,6 +278,7 @@ let-env config = {
   }
   show_banner: true # true or false to enable or disable the banner
   show_clickable_links_in_ls: true # true or false to enable or disable clickable links in the ls listing. your terminal has to support links.
+  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 
   hooks: {
     pre_prompt: [{
