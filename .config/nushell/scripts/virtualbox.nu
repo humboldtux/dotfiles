@@ -64,6 +64,6 @@ def "virtualbox vmconfig" [
   VBoxManage modifyvm $vm --nested-hw-virt on
   VBoxManage modifyvm $vm --memory 8192
   VBoxManage modifyvm $vm --audio none
-  #VBoxManage sharedfolder add $vm --name vmshare --hostpath ~/Dropbox/vmshare --automount
+  VBoxManage sharedfolder add $vm --name guestdwd --hostpath ~/Téléchargements --automount
   VBoxManage sharedfolder add $vm --name oshare --hostpath ~/OneDrive/Share --automount
 }
