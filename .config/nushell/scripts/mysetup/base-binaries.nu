@@ -15,9 +15,6 @@ def "mysetup base binaries" [
     delta
     dust
     gum
-    helix
-    kondo
-    lazygit
     navi
     ncdu
     neovim
