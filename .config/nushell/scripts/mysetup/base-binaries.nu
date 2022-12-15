@@ -68,7 +68,7 @@ def "mysetup base binaries" [
 
   if ('carapace' in $choices) {
     echo "Installing Carapace"
-    fetch (github latestdownload rsteube/carapace-bin Linux_x86_64.tar.gz).0 -o /tmp/carapace.tgz
+    fetch (github latestdownload rsteube/carapace-bin bin_linux_amd64.tar.gz).0 -o /tmp/carapace.tgz
     tar --extract -C $bindir --file /tmp/carapace.tgz carapace
   }
 
