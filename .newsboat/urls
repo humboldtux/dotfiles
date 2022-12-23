@@ -3,6 +3,7 @@ https://www.debian.org/News/news
 https://opensource.com/feed
 https://www.linuxcapable.com/feed/
 https://www.nushell.sh/rss.xml
+https://charm.sh/blog/rss.xml
 ##Windows
 https://4sysops.com/feed/
 #IUT
@@ -11,6 +12,7 @@ https://developer.apple.com/news/releases/rss/releases.rss
 #Rust
 https://hashnode.com/tag/rust/rss
 https://agile-perception.ghost.io/rss/
+https://rustmagazine.github.io/feed.xml
 #Loisirs
 http://france.urbansketchers.org/feeds/posts/default
 http://paris.urbansketchers.org/feeds/posts/default
