@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[ "$PS1" = "" ] && return
 
 if [ -d "$HOME/dra/bin" ]; then
 	PATH="$HOME/dra/bin:$PATH"
@@ -52,9 +52,9 @@ source "$HOME"/.config/broot/launcher/bash/br
 
 export EDITOR="nvim"
 
-#export GOPATH="$HOME/dev"
-export GOBIN="$HOME/go/bin"
-PATH="$GOBIN:$PATH"
+#export GOBIN="$HOME/go/bin"
+export GOPATH="$HOME/dev"
+PATH="$GOPATH/bin:$PATH"
 
 export BAT_THEME="Nord"
 
