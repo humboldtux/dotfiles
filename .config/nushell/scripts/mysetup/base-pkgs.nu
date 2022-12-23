@@ -50,6 +50,7 @@ def "mysetup base pkgs" [] {
       locate
       mariadb-client
       miller
+      moreutils
       needrestart
       neofetch
       neovim
