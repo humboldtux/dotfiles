@@ -39,54 +39,54 @@ def "mysetup base binaries" [
 
   if ('wezterm' in $choices) {
     echo "Installing Wezterm"
-    fetch (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
+    curl -sSL (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
   }
 
   if ('bandwhich' in $choices) {
     echo "Installing Bandwhich"
-    fetch (github latestdownload imsnif/bandwhich x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/bandwhich.tgz
+    curl -sSL (github latestdownload imsnif/bandwhich x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/bandwhich.tgz
     tar --extract -C $bindir --file /tmp/bandwhich.tgz bandwhich
   }
 
   if ('bottom' in $choices) {
     echo "Installing Bottom"
-    fetch (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
+    curl -sSL (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
     tar --extract -C $bindir --file /tmp/bottom.tgz btm
   }
 
   if ('broot' in $choices) {
     echo "Installing Broot"
     let version = (github latestversion Canop/broot | sed 's/broot v//g')
-    fetch (github latestdownload  Canop/broot zip).0 -o /tmp/broot.zip
-    unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save $"($bindir)/broot"
+    curl -sSL (github latestdownload  Canop/broot zip).0 -o /tmp/broot.zip
+    unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save -f $"($bindir)/broot"
     chmod +x $"($bindir)/broot"
     mkdir ~/.config/broot/launcher/bash
-    broot --print-shell-function bash | save ~/.config/broot/launcher/bash/br
+    broot --print-shell-function bash | save -f ~/.config/broot/launcher/bash/br
     broot --set-install-state installed
   }
 
   if ('carapace' in $choices) {
     echo "Installing Carapace"
-    fetch (github latestdownload rsteube/carapace-bin bin_linux_amd64.tar.gz).0 -o /tmp/carapace.tgz
+    curl -sSL (github latestdownload rsteube/carapace-bin bin_linux_amd64.tar.gz).0 -o /tmp/carapace.tgz
     tar --extract -C $bindir --file /tmp/carapace.tgz carapace
   }
 
   if ('delta' in $choices) {
     echo "Installing Delta"
-    fetch (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
+    curl -sSL (github latestdownload dandavison/delta x86_64-unknown-linux-gnu).0 -o /tmp/delta.tgz
     tar --extract --strip-components 1 -C $bindir --file /tmp/delta.tgz --wildcards --no-anchored '*delta'
   }
 
   if ('dust' in $choices) {
     echo "Installing Dust"
-    fetch (github latestdownload bootandy/dust x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/dust.tgz
+    curl -sSL (github latestdownload bootandy/dust x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/dust.tgz
     tar --extract --strip-components 1 -C $bindir --file /tmp/dust.tgz --wildcards --no-anchored '*dust'
   }
 
   if ('gum' in $choices) {
     echo "Installing Gum"
-    fetch (github latestdownload charmbracelet/gum linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
+    curl -sSL (github latestdownload charmbracelet/gum linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
     tar --extract -C $bindir --file /tmp/gum.tgz gum
   }
  
@@ -103,13 +103,13 @@ def "mysetup base binaries" [
 
   if ('lazygit' in $choices) {
     echo "Installing LazyGit"
-    fetch (github latestdownload  jesseduffield/lazygit Linux_x86_64).0 -o /tmp/lazygit.tgz
+    curl -sSL (github latestdownload  jesseduffield/lazygit Linux_x86_64).0 -o /tmp/lazygit.tgz
     tar --extract -C $bindir --file /tmp/lazygit.tgz lazygit
   }
 
   if ('navi' in $choices) {
     echo "Installing Navi"
-    fetch (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
+    curl -sSL (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
     tar --extract -C $bindir --file /tmp/navi.tgz navi
   }
  
@@ -126,13 +126,13 @@ def "mysetup base binaries" [
 
   if ('nushell' in $choices) {
     echo "Installing Nushell"
-    fetch (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
+    curl -sSL (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
     tar --extract --strip-components 1 -C $bindir --file /tmp/nushell.tgz --wildcards --no-anchored '*nu'
   }
 
   if ('qrcp' in $choices) {
     echo "Installing qrcp"
-    fetch (github latestdownload claudiodangelis/qrcp linux_x86_64.tar.gz).0 -o /tmp/qrcp.tgz
+    curl -sSL (github latestdownload claudiodangelis/qrcp linux_x86_64.tar.gz).0 -o /tmp/qrcp.tgz
     tar --extract -C $bindir --file /tmp/qrcp.tgz qrcp
   }
 
@@ -144,7 +144,7 @@ def "mysetup base binaries" [
 
   if ('topgrade' in $choices) {
     echo "Installing Topgrade"
-    fetch (github latestdownload topgrade-rs/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
+    curl -sSL (github latestdownload topgrade-rs/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
     tar --extract -C $bindir --file /tmp/topgrade.tgz topgrade
   }
 
@@ -166,7 +166,7 @@ def "mysetup base binaries" [
 
   if ('zoxide' in $choices) {
     echo "Installing Zoxide"
-    fetch (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
+    curl -sSL (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
     tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide
   }
 

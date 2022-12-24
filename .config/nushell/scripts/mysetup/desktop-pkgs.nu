@@ -32,7 +32,7 @@ def "mysetup desktop pkgs" [] {
   let franz = (do -i {dpkg-query -W -f='${Status}' franz } | complete)
   if ( ($franz).exit_code == 1 ) {
     echo "Installing Franz"
-    fetch (github latestdownload meetfranz/franz amd64.deb).0 -o /tmp/franz.deb
+    curl -sSL (github latestdownload meetfranz/franz amd64.deb).0 -o /tmp/franz.deb
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install /tmp/franz.deb | ignore
   } 
  

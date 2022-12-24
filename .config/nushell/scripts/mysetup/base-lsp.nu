@@ -17,11 +17,11 @@ def "mysetup base lsp" [] {
   pipx install 'python-lsp-server[all]'
   
   echo "Install rust-analyzer"
-  fetch (github latestdownload  rust-lang/rust-analyzer x86_64-unknown-linux-gnu).0 -o /tmp/rust-analyzer.gz
+  curl -sSL (github latestdownload  rust-lang/rust-analyzer x86_64-unknown-linux-gnu).0 -o /tmp/rust-analyzer.gz
   gunzip -q -c /tmp/rust-analyzer.gz | save $"($bindir)/rust-analyzer"
   
   echo "Install Taplo"
-  fetch (github latestdownload tamasfe/taplo full-x86_64-unknown-linux-gnu).0 -o /tmp/taplo.tgz
+  curl -sSL (github latestdownload tamasfe/taplo full-x86_64-unknown-linux-gnu).0 -o /tmp/taplo.tgz
   tar --extract -C $bindir --file /tmp/taplo.tgz taplo
 
   echo "Install lldb"
