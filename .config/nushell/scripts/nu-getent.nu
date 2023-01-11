@@ -46,7 +46,7 @@ let version_getent = '0.1.0'
 
 # Commande getent pour Nushell
 def "nu-getent" [
-  --version, (-v) # Afficher la version
+  --version, -v # Afficher la version
 ] {
   if $version {
     echo $version_getent
