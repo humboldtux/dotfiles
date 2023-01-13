@@ -86,7 +86,7 @@ def "mysetup base binaries" [
 
   if ('gum' in $choices) {
     echo "Installing Gum"
-    curl -sSL (github latestdownload charmbracelet/gum linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
+    curl -sSL (github latestdownload charmbracelet/gum Linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
     tar --extract -C $bindir --file /tmp/gum.tgz gum
   }
  
