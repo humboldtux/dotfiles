@@ -1,6 +1,6 @@
 # Install base binaries
 def "mysetup base binaries" [
-  --filter, (-f) # don't select any choice
+  --filter(-f) # don't select any choice
 ] {
 
   let bindir = $"($env.HOME)/.local/binaries"
