@@ -1,6 +1,6 @@
 alias ll = ls -l
 
-alias nushell_dwd_tgz = fetch -b -o /tmp/nu-latest-release.tgz (fetch https://api.github.com/repos/nushell/nushell/releases/latest | get assets | where name =~ x86_64-unknown-linux-gnu.tar.gz$ | get browser_download_url.0)
+alias nushell_dwd_tgz = http get -b -o /tmp/nu-latest-release.tgz (http get https://api.github.com/repos/nushell/nushell/releases/latest | get assets | where name =~ x86_64-unknown-linux-gnu.tar.gz$ | get browser_download_url.0)
 
 alias topgrade = topgrade --disable remotes
 

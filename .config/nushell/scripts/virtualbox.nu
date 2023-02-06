@@ -9,11 +9,11 @@ def "virtualbox install" [] {
   echo "Installing Deps"
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y dkms build-essential linux-headers-amd64 linux-kbuild-* | ignore
 
-  let version = (fetch https://download.virtualbox.org/virtualbox/LATEST.TXT | str trim)
+  let version = (http get https://download.virtualbox.org/virtualbox/LATEST.TXT | str trim)
   let url = $"https://download.virtualbox.org/virtualbox/($version)"
 
   let md5sum = $"($url)/MD5SUMS"
-  let installer = (fetch $md5sum | grep Linux_amd64.run | awk '{print $2}' | sed -e s/*//g | str trim)
+  let installer = (http get $md5sum | grep Linux_amd64.run | awk '{print $2}' | sed -e s/*//g | str trim)
 
   echo $"Downloading /tmp/($installer)"
   wget -q $"($url)/($installer)" -O $"/tmp/($installer)"

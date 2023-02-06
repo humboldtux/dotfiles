@@ -9,7 +9,7 @@ def "github latestversion" [
 def "github latestdownloads" [
   project: string # Project name
 ] {
-  (fetch $"https://api.github.com/repos/($project)/releases/latest").assets.browser_download_url
+  (http get $"https://api.github.com/repos/($project)/releases/latest").assets.browser_download_url
 }
 
 # Get Github project latest download url given a pattern
