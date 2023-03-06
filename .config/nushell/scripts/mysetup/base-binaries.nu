@@ -139,7 +139,7 @@ def "mysetup base binaries" [
   if ('starship' in $choices) {
     echo "Installing Starship"
     wget -q https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz -O /tmp/starship.tgz
-    tar --extract -C $bindir --file /tmp/starship.tgz starship
+    tar --extract -C $bindir --file /tmp/starship.tgz starship ; starship init nu | save -f ~/.cache/starship/init.nu
   }
 
   if ('topgrade' in $choices) {
@@ -167,7 +167,7 @@ def "mysetup base binaries" [
   if ('zoxide' in $choices) {
     echo "Installing Zoxide"
     curl -sSL (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
-    tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide
+    tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide ; zoxide init nushell | save -f ~/.zoxide.nu
   }
 
   chmod u+x $"($bindir)/*"
