@@ -1,12 +1,12 @@
 alias ll = ls -l
 
-alias nushell_dwd_tgz = http get -b -o /tmp/nu-latest-release.tgz (http get https://api.github.com/repos/nushell/nushell/releases/latest | get assets | where name =~ x86_64-unknown-linux-gnu.tar.gz$ | get browser_download_url.0)
+alias nushell_dwd_tgz = wget -O /tmp/nu-latest-release.tgz (http get https://api.github.com/repos/nushell/nushell/releases/latest | get assets | where name =~ x86_64-unknown-linux-gnu.tar.gz$ | get browser_download_url.0)
 
-alias topgrade = topgrade --disable remotes
+alias topgrade = ~/.local/binaries/topgrade --disable remotes
 
-alias grep = grep --color=auto
+alias grep = /usr/bin/grep --color=auto
 
-alias ag = ag --smart-case --pager = less -MIRFX
+alias ag = /usr/bin/ag --smart-case --pager = less -MIRFX
 
 alias pbcopy = xclip -selection clipboard -r
 alias pbpaste = xclip -selection clipboard -o
@@ -21,16 +21,16 @@ alias bcat = bat -pp
 alias bless = bat -p
 alias ccat = highlight -O ansi
 
-alias diff = diff --color
+alias diff = /usr/bin/diff --color
 
-alias streamlink = streamlink  --default-stream best --retry-streams 1 --retry-max 0 --retry-open 100
+alias streamlink = ~/.local/bin/streamlink  --default-stream best --retry-streams 1 --retry-max 0 --retry-open 100
 
 alias youtube_dl_sub = youtube-dl --all-subs --write-auto-sub
 alias youtube_dl_most = youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'
 alias yt_sub = yt-dlp --all-subs --write-auto-sub
 alias yt_most = yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'
 
-alias obsidian = obsidian --no-sandbox
+alias obsidian = ~/.local/bin/obsidian --no-sandbox
 
 alias curl_burp = curl -x 127.0.0.1:8080 -k
 
