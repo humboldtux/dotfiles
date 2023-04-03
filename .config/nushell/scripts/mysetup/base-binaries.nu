@@ -19,7 +19,6 @@ def "mysetup base binaries" [
     ncdu
     neovim
     nushell
-    qrcp
     starship
     topgrade
     up
@@ -90,11 +89,6 @@ def "mysetup base binaries" [
     tar --extract -C $bindir --file /tmp/gum.tgz gum
   }
  
-  if ('helix' in $choices) {
-    echo "Installing Helix"
-    wget -q (github latestdownload  helix-editor/helix AppImage$).0 -O $"($bindir)/hx"
-  }
-
   if ('kondo' in $choices) {
     echo "Installing Kondo"
     curl -sSL https://github.com/tbillington/kondo/releases/latest/download/kondo-x86_64-unknown-linux-gnu.tar.gz -o /tmp/kondo.tgz
@@ -128,12 +122,6 @@ def "mysetup base binaries" [
     echo "Installing Nushell"
     curl -sSL (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
     tar --extract --strip-components 1 -C $bindir --file /tmp/nushell.tgz --wildcards --no-anchored '*nu'
-  }
-
-  if ('qrcp' in $choices) {
-    echo "Installing qrcp"
-    curl -sSL (github latestdownload claudiodangelis/qrcp linux_x86_64.tar.gz).0 -o /tmp/qrcp.tgz
-    tar --extract -C $bindir --file /tmp/qrcp.tgz qrcp
   }
 
   if ('starship' in $choices) {
