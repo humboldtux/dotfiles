@@ -9,6 +9,6 @@ def "mysetup base pipx" [] {
     streamlink
   ]
 
-  $pkgs | each { pipx install $in }
+  $pkgs | each { || pipx install $in }
 
 }
