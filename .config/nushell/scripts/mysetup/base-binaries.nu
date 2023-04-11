@@ -104,7 +104,7 @@ def "mysetup base binaries" [
   if ('navi' in $choices) {
     echo "Installing Navi"
     curl -sSL (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
-    tar --extract -C $bindir --file /tmp/navi.tgz navi
+    tar --extract -C $bindir --file /tmp/navi.tgz ./navi
   }
  
   if ('ncdu' in $choices) {
