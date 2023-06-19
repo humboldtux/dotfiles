@@ -93,3 +93,5 @@ alias jsonify='python -m json.tool'
 alias onedrive_log='journalctl --user-unit onedrive -q -f | lnav'
 
 alias wifi-show-password='nmcli device wifi show-password'
+
+alias n8n='docker run -it --rm --name n8n -p 5678:5678 -v ~/.n8n:/home/node/.n8n  -e GENERIC_TIMEZONE="Europe/Paris" -e TZ="Europe/Paris" docker.n8n.io/n8nio/n8n'
