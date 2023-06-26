@@ -84,7 +84,6 @@ def "mysetup base pkgs" [] {
       strace
       sudo
       swaks
-      sysdig
       tcpdump
       tig
       tre-command
