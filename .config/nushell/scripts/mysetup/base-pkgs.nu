@@ -48,6 +48,7 @@ def "mysetup base pkgs" [] {
       lldb
       lnav
       locate
+      lsd
       mariadb-client
       miller
       moreutils
