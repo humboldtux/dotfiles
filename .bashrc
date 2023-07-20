@@ -79,3 +79,7 @@ fi
 if [ -x "$(command -v cscli)" ]; then
 	eval "$(cscli completion bash)"
 fi
+
+if [ -f "$HOME/.govc_env" ]; then
+	source "$HOME"/.govc_env
+fi
