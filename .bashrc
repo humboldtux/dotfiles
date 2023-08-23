@@ -73,7 +73,7 @@ if [ -x "$(command -v zellij)" ]; then
 fi
 
 if [ -x "$(command -v procs)" ]; then
-	eval "$(procs --completion-out bash)"
+	eval "$(procs --gen-completion-out bash)"
 fi
 
 if [ -x "$(command -v cscli)" ]; then
