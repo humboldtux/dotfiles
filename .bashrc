@@ -83,3 +83,10 @@ fi
 if [ -f "$HOME/.govc_env" ]; then
 	source "$HOME"/.govc_env
 fi
+
+if [ -x "$(command -v atuin)" ]; then
+	#[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+	#eval "$(atuin init bash --disable-up-arrow)"
+	eval "$(atuin init bash)"
+	eval "$(atuin gen-completions --shell bash)"
+fi
