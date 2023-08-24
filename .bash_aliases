@@ -3,9 +3,12 @@
 alias topgrade='topgrade --disable remotes'
 
 #alias ls='exa'
-#alias la='exa -a --color=always --group-directories-first'
-alias lx='exa -la --color=always --group-directories-first'
-#alias liso='exa --time-style full-iso'
+alias l='exa'
+alias la='exa --all'
+alias lh='exa --long'
+alias ll='exa --long  --header --all --icons --classify --group'
+alias lx='exa --long --all --group-directories-first'
+alias liso='exa --long --time-style full-iso'
 
 alias grep='grep --color=auto'
 
