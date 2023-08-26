@@ -90,3 +90,5 @@ if [ -x "$(command -v atuin)" ]; then
 	eval "$(atuin init bash)"
 	eval "$(atuin gen-completions --shell bash)"
 fi
+
+eval "$(carapace _carapace)"
