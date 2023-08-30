@@ -4,7 +4,7 @@ source virtualbox.nu
 source nu-getent.nu
 
 def "nu-complete ip-devices" [] {
-  (ls /sys/class/net/ | path basename -c [ name ]).name
+  /sys/class/net/ | get name | path basename
 }
 
 # Show dev ip

@@ -5,7 +5,7 @@ def "mysetup base binaries" [
 
   let bindir = $"($env.HOME)/.local/binaries"
   mkdir $bindir
-  let-env PATH = ($env.PATH | split row (char esep) | prepend $bindir)
+  $env.PATH = ($env.PATH | split row (char esep) | prepend $bindir)
 
   let binaries = [
     bandwhich

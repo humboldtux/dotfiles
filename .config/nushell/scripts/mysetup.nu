@@ -1,4 +1,4 @@
-let-env NEEDRESTART_MODE = "a"
+$env.NEEDRESTART_MODE = "a"
 
 source mysetup/base-binaries.nu
 source mysetup/base-nerdfonts.nu
