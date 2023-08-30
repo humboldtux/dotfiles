@@ -28,9 +28,7 @@ def "mysetup base binaries" [
     zoxide
   ]
 
-  let choices = if ( not ( $"($bindir)/gum" | path exists) ) {
-    $binaries
-  } else if $filter {
+  let choices = if $filter {
     ($binaries | to text | gum filter --no-limit | lines)
   } else {
     ($binaries | to text | gum choose --no-limit --selected ($binaries | str join ',') | lines)
