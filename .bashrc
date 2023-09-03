@@ -91,4 +91,7 @@ if [ -x "$(command -v atuin)" ]; then
 	eval "$(atuin gen-completions --shell bash)"
 fi
 
-eval "$(carapace _carapace)"
+# shellcheck disable=SC1090
+if ls /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh &>/dev/null; then
+	. /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh
+fi
