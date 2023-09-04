@@ -24,6 +24,7 @@ def "mysetup base binaries" [
     up
     viu
     wezterm
+    xq
     zellij
     zoxide
   ]
@@ -155,6 +156,12 @@ def "mysetup base binaries" [
     echo "Installing Zoxide"
     curl -sSL (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
     tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide ; zoxide init nushell | save -f ~/.zoxide.nu
+  }
+
+  if ('xq' in $choices) {
+    echo "Installing xq"
+    curl -sSL (github latestdownload sibprogrammer/xq linux_amd64).0 -o /tmp/xq.tgz
+    tar --extract -C $bindir --file /tmp/xq.tgz xq
   }
 
   chmod u+x $"($bindir)/*"
