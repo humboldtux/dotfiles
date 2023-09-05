@@ -44,7 +44,7 @@ wtf:
         left: 3
         height: 1
         width: 1
-      refreshInterval: 1m
+      refreshInterval: 1h
     feedreader:
       enabled: true
       feeds:
@@ -64,7 +64,7 @@ wtf:
         left: 3
         height: 1
         width: 1
-      refreshInterval: 5m
+      refreshInterval: 1h
       unit: "m"
       view: 0
       language: "fr"
@@ -98,7 +98,7 @@ wtf:
         left: 1
         height: 1
         width: 1
-      refreshInterval: 1m
+      refreshInterval: 1h
     correos:
       title: "correos"
       type: "cmdrunner"
@@ -110,7 +110,26 @@ wtf:
         left: 2
         height: 1
         width: 2
-      refreshInterval: 1m
+      refreshInterval: 1h
+    khal:
+      title: "calendrier"
+      type: "cmdrunner"
+      args:
+        [
+          "list",
+          "today",
+          "week",
+          "--format",
+          "{start-style} {location} {description}"
+        ]
+      cmd: "khal"
+      enabled: true
+      position:
+        top: 4
+        left: 1
+        height: 2
+        width: 1
+      refreshInterval: 1h
     gita:
       type: "cmdrunner"
       args: [ "ll" ]
@@ -118,7 +137,7 @@ wtf:
       enabled: true
       position:
         top: 4
-        left: 1
+        left: 2
         height: 2
-        width: 3
-      refreshInterval: 1m
+        width: 2
+      refreshInterval: 1h
