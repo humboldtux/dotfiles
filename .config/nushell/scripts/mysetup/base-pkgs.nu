@@ -28,7 +28,7 @@ def "mysetup base pkgs" [] {
       firmware-linux-free
       firmware-linux-nonfree
       ftp
-      fuse
+      fuse3
       fzf
       gdebi
       golang
