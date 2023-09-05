@@ -24,6 +24,7 @@ def "mysetup base binaries" [
     up
     viu
     wezterm
+    wtf
     xq
     zellij
     zoxide
@@ -162,6 +163,12 @@ def "mysetup base binaries" [
     echo "Installing xq"
     curl -sSL (github latestdownload sibprogrammer/xq linux_amd64).0 -o /tmp/xq.tgz
     tar --extract -C $bindir --file /tmp/xq.tgz xq
+  }
+
+  if ('wtf' in $choices) {
+    echo "Installing wtf"
+    curl -sSL (github latestdownload wtfutil/wtf linux_amd64).0 -o /tmp/wtf.tgz
+    tar --extract --strip-components 1 -C $bindir --file /tmp/wtf.tgz --wildcards --no-anchored '*wtfutil'
   }
 
   chmod u+x $"($bindir)/*"
