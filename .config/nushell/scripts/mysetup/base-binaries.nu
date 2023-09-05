@@ -38,9 +38,9 @@ def "mysetup base binaries" [
 
   if ('wezterm' in $choices) {
     echo "Installing Wezterm"
-    curl -sSL (github latestdownload  wez/wezterm Debian11.deb).0 -o /tmp/wezterm.deb
+    curl -sSL (github latestdownload  wez/wezterm Ubuntu22.04.deb).0 -o /tmp/wezterm.deb
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq -y /tmp/wezterm.deb | ignore
-    wget https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo -O ~/.terminfo
+    wget -q https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo -O ~/.terminfo
   }
 
   if ('bandwhich' in $choices) {
