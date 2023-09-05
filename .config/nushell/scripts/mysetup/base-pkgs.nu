@@ -28,6 +28,7 @@ def "mysetup base pkgs" [] {
       firmware-linux-free
       firmware-linux-nonfree
       ftp
+      fuse
       fzf
       gdebi
       golang
@@ -49,6 +50,7 @@ def "mysetup base pkgs" [] {
       lnav
       locate
       lsd
+      luarocks
       mariadb-client
       miller
       moreutils
@@ -90,6 +92,7 @@ def "mysetup base pkgs" [] {
       tre-command
       tshark
       unrar
+      unzip
       vim
       w3m
       xorriso
