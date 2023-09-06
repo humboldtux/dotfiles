@@ -91,7 +91,6 @@ wtf:
     zou:
       type: "cmdrunner"
       cmd: "zou"
-      args: []
       enabled: true
       position:
         top: 3
@@ -111,18 +110,10 @@ wtf:
         height: 1
         width: 2
       refreshInterval: 1h
-    khal:
+    mykhal:
       title: "calendrier"
       type: "cmdrunner"
-      args:
-        [
-          "list",
-          "today",
-          "week",
-          "--format",
-          "{start-style} {location} {description}"
-        ]
-      cmd: "khal"
+      cmd: "mykhal"
       enabled: true
       position:
         top: 4

@@ -41,6 +41,7 @@ def "mysetup base pkgs" [] {
       jc
       jq
       kmon
+      khal
       ldap-utils
       libproxychains4
       libssl-dev
