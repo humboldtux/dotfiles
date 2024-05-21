@@ -149,7 +149,7 @@
 [github]
         user = humboldtux
 [http]
-        sslVerify = false
+        #sslVerify = false
 [alias]
         hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
         deco = log --decorate --graph --oneline
