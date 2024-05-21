@@ -5,8 +5,8 @@ wtf:
       focused: orange
       normal: gray
   grid:
-    columns: [ 32, 32, 32, 32, 90 ]
-    rows: [ 10, 10, 10, 4, 4, 90 ]
+    columns: [32, 32, 32, 32, 90]
+    rows: [10, 10, 10, 4, 4, 90]
   refreshInterval: 1
   mods:
     digitalclock:
@@ -36,7 +36,7 @@ wtf:
       showSwp: true
     duf:
       type: "cmdrunner"
-      args: [ "-only", "local", "-output", "mountpoint,usage" ]
+      args: ["-only", "local", "-output", "mountpoint,usage"]
       cmd: "duf"
       enabled: true
       position:
@@ -102,7 +102,7 @@ wtf:
       title: "correos"
       type: "cmdrunner"
       cmd: "correos"
-      args: [ "RF070419721ES" ]
+      args: ["RF077705103ES"]
       enabled: true
       position:
         top: 3
@@ -123,7 +123,7 @@ wtf:
       refreshInterval: 1h
     gita:
       type: "cmdrunner"
-      args: [ "ll" ]
+      args: ["ll"]
       cmd: "/usr/bin/gita"
       enabled: true
       position:
