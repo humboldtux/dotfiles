@@ -27,7 +27,8 @@ else
 fi
 
 #HISTORY
-export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
+#export HISTCONTROL="${HISTCONTROL:-ignorespace:erasedups}"
+export HISTCONTROL="${HISTCONTROL:-ignorespace}"
 export HISTSIZE=10000
 shopt -s histappend #append to bash_history if Terminal quits
 # Recherche avec UpArrow/DownArrow
@@ -35,20 +36,28 @@ if [ -t 1 ]; then
 	bind '"[A":history-search-backward'
 	bind '"[B":history-search-forward'
 fi
-eval "$(zoxide init bash)"
+if [ -x "$(command -v zoxide)" ]; then
+	eval "$(zoxide init bash)"
+fi
 
 [[ $- == *i* ]] && [ -f "$HOME/.nix-profile/share/fzf/completion.bash" ] && source "$HOME/.nix-profile/share/fzf/completion.bash"
 [[ $- == *i* ]] && [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f "$HOME"/.nix-profile/share/fzf/key-bindings.bash ] && source "$HOME"/.nix-profile/share/fzf/key-bindings.bash
 
-eval "$(starship init bash)"
+if [ -x "$(command -v starship)" ]; then
+	eval "$(starship init bash)"
+fi
 
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
-eval "$(direnv hook bash)"
+if [ -x "$(command -v direnv)" ]; then
+	eval "$(direnv hook bash)"
+fi
 
-source "$HOME"/.config/broot/launcher/bash/br
+if [ -f "$HOME"/.config/broot/launcher/bash/br ]; then
+	source "$HOME"/.config/broot/launcher/bash/br
+fi
 
 export EDITOR="nvim"
 
@@ -65,8 +74,10 @@ PATH="$HOME/dev/src/github.com/humboldtux/scripts":$PATH
 PATH="$HOME/dev/src/github.com/humboldtux/scripts-priv":$PATH
 export PATH
 
-eval "$(navi widget bash)"
-export NAVI_PATH="$HOME/dev/src/github.com/humboldtux/cheats-priv:$HOME/dev/src/github.com/humboldtux/cheats:$HOME/.local/share/navi/cheats"
+if [ -x "$(command -v navi)" ]; then
+	eval "$(navi widget bash)"
+	export NAVI_PATH="$HOME/dev/src/github.com/humboldtux/cheats-priv:$HOME/dev/src/github.com/humboldtux/cheats:$HOME/.local/share/navi/cheats"
+fi
 
 if [ -x "$(command -v zellij)" ]; then
 	eval "$(zellij setup --generate-completion bash)"
@@ -84,14 +95,23 @@ if [ -f "$HOME/.govc_env" ]; then
 	source "$HOME"/.govc_env
 fi
 
-if [ -x "$(command -v atuin)" ]; then
-	#[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
-	#eval "$(atuin init bash --disable-up-arrow)"
-	eval "$(atuin init bash)"
-	eval "$(atuin gen-completions --shell bash)"
-fi
-
 # shellcheck disable=SC1090
 if ls /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh &>/dev/null; then
 	. /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh
+fi
+
+if [ -f "/usr/bin/packer" ]; then
+	complete -C /usr/bin/packer packer
+fi
+
+if [ -x "$(command -v minikube)" ]; then
+	eval "$(minikube completion bash)"
+fi
+
+if [ -x "$(command -v kubectl)" ]; then
+	eval "$(kubectl completion bash)"
+fi
+
+if [ -x "$(command -v faas-cli)" ]; then
+	eval "$(faas-cli completion --shell bash)"
 fi
