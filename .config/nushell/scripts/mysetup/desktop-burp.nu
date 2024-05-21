@@ -1,7 +1,7 @@
 # Install BurpSuite
 def "mysetup desktop burp" [] {
 
-  if ( ('/opt/BurpSuiteCommunity' | path type) != dir) and ( $"($env.HOME)/BurpSuiteCommunity" | path type) != dir) {
+  if ( ('/opt/BurpSuiteCommunity' | path type) != dir) and (($"($env.HOME)/BurpSuiteCommunity" | path type) != dir) {
 
     echo 'sys.adminRights$Boolean=true' | lines | save /tmp/response.varfile
     echo 'sys.fileAssociation.extensions$StringArray="burp"' | lines | save --append /tmp/response.varfile

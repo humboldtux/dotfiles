@@ -26,6 +26,7 @@ def "mysetup base binaries" [
     wezterm
     wtf
     xq
+    yazi
     zellij
     zoxide
   ]
@@ -45,22 +46,17 @@ def "mysetup base binaries" [
 
   if ('bandwhich' in $choices) {
     echo "Installing Bandwhich"
-    curl -sSL (github latestdownload imsnif/bandwhich x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/bandwhich.tgz
-    tar --extract -C $bindir --file /tmp/bandwhich.tgz bandwhich
+    cargo binstall bandwhich
   }
 
   if ('bottom' in $choices) {
     echo "Installing Bottom"
-    curl -sSL (github latestdownload  ClementTsang/bottom x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/bottom.tgz
-    tar --extract -C $bindir --file /tmp/bottom.tgz btm
+    cargo binstall bottom
   }
 
   if ('broot' in $choices) {
     echo "Installing Broot"
-    let version = (github latestversion Canop/broot | sed 's/broot v//g')
-    curl -sSL (github latestdownload  Canop/broot zip).0 -o /tmp/broot.zip
-    unzip -q -o -p /tmp/broot.zip x86_64-unknown-linux-musl/broot | save -f $"($bindir)/broot"
-    chmod +x $"($bindir)/broot"
+    cargo binstall broot
     mkdir ~/.config/broot/launcher/bash
     broot --print-shell-function bash | save -f ~/.config/broot/launcher/bash/br
     broot --set-install-state installed
@@ -87,13 +83,12 @@ def "mysetup base binaries" [
   if ('gum' in $choices) {
     echo "Installing Gum"
     curl -sSL (github latestdownload charmbracelet/gum Linux_x86_64.tar.gz$).0 -o /tmp/gum.tgz
-    tar --extract -C $bindir --file /tmp/gum.tgz gum
+    tar --extract --strip-components 1 -C $bindir --file /tmp/gum.tgz --wildcards --no-anchored '*gum'
   }
  
   if ('kondo' in $choices) {
     echo "Installing Kondo"
-    curl -sSL https://github.com/tbillington/kondo/releases/latest/download/kondo-x86_64-unknown-linux-gnu.tar.gz -o /tmp/kondo.tgz
-    tar --extract -C $bindir --file /tmp/kondo.tgz kondo
+    cargo binstall kondo
   }
 
   if ('lazygit' in $choices) {
@@ -104,8 +99,7 @@ def "mysetup base binaries" [
 
   if ('navi' in $choices) {
     echo "Installing Navi"
-    curl -sSL (github latestdownload denisidoro/navi x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/navi.tgz
-    tar --extract -C $bindir --file /tmp/navi.tgz ./navi
+    cargo binstall navi
   }
  
   if ('ncdu' in $choices) {
@@ -121,20 +115,17 @@ def "mysetup base binaries" [
 
   if ('nushell' in $choices) {
     echo "Installing Nushell"
-    curl -sSL (github latestdownload nushell/nushell x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/nushell.tgz
-    tar --extract --strip-components 1 -C $bindir --file /tmp/nushell.tgz --wildcards --no-anchored '*nu'
+    cargo binstall nu
   }
 
   if ('starship' in $choices) {
     echo "Installing Starship"
-    wget -q https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz -O /tmp/starship.tgz
-    tar --extract -C $bindir --file /tmp/starship.tgz starship ; starship init nu | save -f ~/.cache/starship/init.nu
+    cargo binstall starship
   }
 
   if ('topgrade' in $choices) {
     echo "Installing Topgrade"
-    curl -sSL (github latestdownload topgrade-rs/topgrade x86_64-unknown-linux-gnu.tar.gz).0 -o /tmp/topgrade.tgz
-    tar --extract -C $bindir --file /tmp/topgrade.tgz topgrade
+    cargo binstall topgrade-rs
   }
 
   if ('up' in $choices) {
@@ -144,25 +135,27 @@ def "mysetup base binaries" [
 
   if ('viu' in $choices) {
     echo "Installing Viu"
-    wget -q https://github.com/atanunq/viu/releases/latest/download/viu -O $"($bindir)/viu"
+    cargo binstall viu
   }
 
   if ('zellij' in $choices) {
     echo "Installing Zellij"
-    curl -sSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz -o /tmp/zellij.tgz
-    tar --extract -C $bindir --file /tmp/zellij.tgz zellij
+    cargo binstall zellij
   }
 
   if ('zoxide' in $choices) {
     echo "Installing Zoxide"
-    curl -sSL (github latestdownload ajeetdsouza/zoxide x86_64-unknown-linux-musl.tar.gz).0 -o /tmp/zoxide.tgz
-    tar --extract -C $bindir --file /tmp/zoxide.tgz zoxide ; zoxide init nushell | save -f ~/.zoxide.nu
+    cargo binstall zoxide
   }
 
   if ('xq' in $choices) {
     echo "Installing xq"
-    curl -sSL (github latestdownload sibprogrammer/xq linux_amd64).0 -o /tmp/xq.tgz
-    tar --extract -C $bindir --file /tmp/xq.tgz xq
+    cargo binstall xq
+  }
+
+  if ('yazi' in $choices) {
+    echo "Installing yazi filemanager"
+    cargo binstall yazi-fm yazi-cli
   }
 
   if ('wtf' in $choices) {
