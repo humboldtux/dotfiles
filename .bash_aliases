@@ -100,3 +100,5 @@ alias wifi-show-password='nmcli device wifi show-password'
 alias n8n='docker run -it --rm --name n8n -p 5678:5678 -v ~/.n8n:/home/node/.n8n  -e GENERIC_TIMEZONE="Europe/Paris" -e TZ="Europe/Paris" docker.n8n.io/n8nio/n8n'
 
 alias fd='fdfind'
+
+alias fzp='fzf --preview="batcat --color=always {}"'
