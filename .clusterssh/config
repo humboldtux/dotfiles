@@ -1,0 +1,4 @@
+terminal_reserve_top = 32
+terminal_reserve_bottom = 0
+#terminal_reserve_left = 5
+#terminal_reserve_right = 0
