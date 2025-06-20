@@ -3,6 +3,7 @@
 alias topgrade='topgrade --disable remotes'
 
 #alias ls='exa'
+# https://github.com/basecamp/omakub/blob/master/defaults/bash/aliases
 alias l='exa'
 alias la='exa --all'
 alias lh='exa --long'
