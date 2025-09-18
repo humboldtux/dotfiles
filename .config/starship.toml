@@ -1,0 +1,12 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Affiche toujours le nom d'utilisateur
+[username]
+show_always = true
+format = "[$user]($style)"
+
+# Affiche toujours le hostname
+[hostname]
+ssh_only = false
+format = "[@$hostname]($style) "
