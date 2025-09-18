@@ -1,3 +1,4 @@
+set editing-mode vi
 set bell-style none
 
 set meta-flag on
