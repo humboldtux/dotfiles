@@ -41,5 +41,14 @@
 # # which is explained in the docs for that config option.
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
-font-family = CaskaydiaMono Nerd Font
+font-family = "CaskaydiaMono NF"
+#font-family = "JetBrainsMono NF Light"
+#font-family-bold = "CaskaydiaMono NF SemiBold"
+#font-family-bold-italic = "CaskaydiaMono NF SemiBold Italic"
 
+#theme = catppuccin-mocha
+font-size = 13
+#background-blur-radius = 20
+mouse-hide-while-typing = true
+window-decoration = false
+# background-opacity = 0.9
