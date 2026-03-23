@@ -1,9 +1,20 @@
-#!/bin/bash
+# ─────────────────────────────
+# Guard : shell interactif uniquement
+# ─────────────────────────────
+# Plus fiable que PS1 (best practice moderne)
+[[ $- != *i* ]] && return
 
 # ─────────────────────────────
-# Shell interactif uniquement
+# Helpers
 # ─────────────────────────────
-[ "$PS1" = "" ] && return
+
+# Ajout au PATH sans duplication
+add_to_path() {
+  case ":$PATH:" in
+  *":$1:"*) ;;
+  *) PATH="$1:$PATH" ;;
+  esac
+}
 
 # ─────────────────────────────
 # Variables d’environnement
@@ -11,125 +22,92 @@
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 export BAT_THEME="Nord"
-shopt -s histappend # append to bash_history if Terminal quits
+
+# Historique
+shopt -s histappend
 export HISTCONTROL=ignoreboth
 export HISTSIZE=10000
-export HISTFILESIZE="${HISTSIZE}"
-
-# ─────────────────────────────
-# Dossiers bin perso dans $PATH
-# ─────────────────────────────
-if [ -d "$HOME/.local/binaries" ]; then
-  PATH="$HOME/.local/binaries:$PATH"
-fi
-
-if [ -d "$HOME/bin" ]; then
-  PATH="$HOME/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ]; then
-  PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -f "$HOME/.cargo/env" ]; then
-  source "$HOME"/.cargo/env
-else
-  PATH="$HOME/.cargo/bin:$PATH"
-fi
+export HISTFILESIZE="$HISTSIZE"
 
 # Go
-# export GOBIN="$HOME/go/bin"
 export GOPATH="$HOME/dev"
-PATH="$GOPATH/bin:$PATH"
 
-# Scripts perso
-PATH="$HOME/dev/src/github.com/humboldtux/scripts:$PATH"
-PATH="$HOME/dev/src/github.com/humboldtux/scripts-priv:$PATH"
+# ─────────────────────────────
+# PATH
+# ─────────────────────────────
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.local/binaries"
+add_to_path "$HOME/bin"
+add_to_path "$GOPATH/bin"
+add_to_path "$HOME/dev/src/github.com/humboldtux/scripts"
+add_to_path "$HOME/dev/src/github.com/humboldtux/scripts-priv"
 
-# Export final du PATH
+# Cargo
+if [ -f "$HOME/.cargo/env" ]; then
+  source "$HOME/.cargo/env"
+else
+  add_to_path "$HOME/.cargo/bin"
+fi
+
 export PATH
 
 # ─────────────────────────────
-# Agents & Env externes
+# SSH Agent (robuste)
 # ─────────────────────────────
-# SSH agent (⚠️ voir commentaire dans retour précédent)
+export SSH_ENV="$HOME/.ssh/agent.env"
+
+if [ -f "$SSH_ENV" ]; then
+  source "$SSH_ENV" >/dev/null
+fi
+
 if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-  eval "$(ssh-agent -s)" >/dev/null
-fi
-
-# GOVC (VMware)
-if [ -f "$HOME/.govc_env" ]; then
-  source "$HOME"/.govc_env
+  ssh-agent >"$SSH_ENV"
+  source "$SSH_ENV" >/dev/null
 fi
 
 # ─────────────────────────────
-# Autocomplétions
+# Environnements externes
 # ─────────────────────────────
-. /usr/share/bash-completion/bash_completion
+[ -f "$HOME/.govc_env" ] && source "$HOME/.govc_env"
 
-if command -v fzf &>/dev/null; then
-  [[ -f /usr/share/bash-completion/completions/fzf ]] && source /usr/share/bash-completion/completions/fzf
-  [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]] && source /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-
-if [ -x "$(command -v zellij)" ]; then
-  eval "$(zellij setup --generate-completion bash)"
-fi
-
-if [ -x "$(command -v cscli)" ]; then
-  eval "$(cscli completion bash)"
-fi
-
-if ls /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh &>/dev/null; then
-  . /opt/vagrant/embedded/gems/gems/vagrant-*/contrib/bash/completion.sh
-fi
-
-if [ -f "/usr/bin/packer" ]; then
-  complete -C /usr/bin/packer packer
-fi
-
-if [ -x "$(command -v minikube)" ]; then
-  eval "$(minikube completion bash)"
-fi
-
-if [ -x "$(command -v kubectl)" ]; then
-  eval "$(kubectl completion bash)"
-fi
-
-if [ -x "$(command -v faas-cli)" ]; then
-  eval "$(faas-cli completion --shell bash)"
+# ─────────────────────────────
+# Bash completion (safe load)
+# ─────────────────────────────
+if [[ -f /usr/share/bash-completion/bash_completion && -z ${BASH_COMPLETION_VERSINFO:-} ]]; then
+  source /usr/share/bash-completion/bash_completion
 fi
 
 # ─────────────────────────────
-# Intégrations d’outils externes
+# Complétions spécifiques
+# Et outils interactifs
 # ─────────────────────────────
+eval "$(direnv hook bash)"
+eval "$(fzf --bash)"
 eval "$(starship init bash)"
+eval "$(zellij setup --generate-completion bash)"
 eval "$(zoxide init bash)"
 
-if [ -x "$(command -v direnv)" ]; then
-  eval "$(direnv hook bash)"
-fi
-
-if [ -f "$HOME/.config/broot/launcher/bash/br" ]; then
-  source "$HOME/.config/broot/launcher/bash/br"
-fi
-
+# navi
 if [ -x "$(command -v navi)" ]; then
   eval "$(navi widget bash)"
   export NAVI_PATH="$HOME/dev/src/github.com/humboldtux/cheats-priv:$HOME/dev/src/github.com/humboldtux/cheats:$HOME/.local/share/navi/cheats"
 fi
 
 # ─────────────────────────────
-# Fichiers utilisateur
+# Aliases & fonctions utilisateur
 # ─────────────────────────────
-source "$HOME/.bash_aliases"
-source "$HOME/.bash_functions"
+[ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
+[ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
 
-# Scripts personnalisés (si présents)
+# ─────────────────────────────
+# Extensions locales (optionnel)
+# ─────────────────────────────
 if [ -d "$HOME/.bashrc.d" ]; then
-  for fichier in "$HOME"/.bashrc.d/*.sh; do
-    [ -r "$fichier" ] && . "$fichier"
+  shopt -s nullglob
+  for file in "$HOME"/.bashrc.d/*.sh; do
+    [ -r "$file" ] && source "$file"
   done
+  shopt -u nullglob
 fi
 
 # ─────────────────────────────
@@ -139,4 +117,5 @@ fzf_zoxide_cd() {
   local dir
   dir=$(zoxide query -l | fzf --height 40% --reverse) && cd "$dir"
 }
-bind -x '"\C-g": fzf_zoxide_cd'
+
+bind -x '"\C-f": fzf_zoxide_cd'
