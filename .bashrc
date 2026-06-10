@@ -87,6 +87,9 @@ eval "$(starship init bash)"
 eval "$(zellij setup --generate-completion bash)"
 eval "$(zoxide init bash)"
 
+# Synchronisation immédiate de l'historique
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a; history -n"
+
 # navi
 if [ -x "$(command -v navi)" ]; then
   eval "$(navi widget bash)"
