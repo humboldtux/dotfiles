@@ -88,9 +88,18 @@ alias my_nmap='sudo nmap -n -P0 -sS -sU -T5 --max-retries=0 --max-rtt-timeout=10
 
 alias battery='upower -i $(upower -e | grep "BAT")'
 
-alias vpn_dsi='/opt/cisco/anyconnect/bin/vpn'
-alias vpn_dsi_c='/opt/cisco/anyconnect/bin/vpn connect open.unice.fr'
-alias vpn_dsi_d='/opt/cisco/anyconnect/bin/vpn disconnect'
+# VPN DSI : vpnagentd est desactive au demarrage, on le pilote a la demande
+alias vpn_dsi='/opt/cisco/secureclient/bin/vpn'
+
+vpn_dsi_c() {
+  systemctl is-active --quiet vpnagentd || sudo systemctl start vpnagentd
+  /opt/cisco/secureclient/bin/vpn connect open.unice.fr
+}
+
+vpn_dsi_d() {
+  /opt/cisco/secureclient/bin/vpn disconnect
+  sudo systemctl stop vpnagentd
+}
 
 alias jsonify='python -m json.tool'
 
