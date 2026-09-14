@@ -12,7 +12,18 @@ description: À partir d'une vidéo YouTube (URL ou ID), produit un transcript c
 
 ## Prérequis
 
-- Le skill `baoyu-youtube-transcript` doit être installé. `{baoyuDir}` = `{baseDir}/../baoyu-youtube-transcript` (dossier voisin). S'il n'y est pas, chercher le skill ailleurs sur la machine, et en dernier recours demander son chemin à l'utilisateur.
+- Le skill `baoyu-youtube-transcript` (source : `jimliu/baoyu-skills`). `{baoyuDir}` = `{baseDir}/../baoyu-youtube-transcript` (dossier voisin, soit `~/.qwen/skills/baoyu-youtube-transcript` quand ce skill est installé au niveau utilisateur). Le critère d'installation : `{baoyuDir}/scripts/main.ts` existe.
+- S'il n'est pas au dossier voisin, d'abord vérifier si une copie existe déjà ailleurs sur la machine (ex. `~/.agents/skills/baoyu-youtube-transcript`) et, dans ce cas, l'utiliser comme `{baoyuDir}`. Sinon, l'installer soi-même au niveau utilisateur global avant de poursuivre — sans demander à l'utilisateur : l'installation est déterministe et son résultat vérifiable au fichier `scripts/main.ts`.
+  ```bash
+  npx -y skills add jimliu/baoyu-skills --skill baoyu-youtube-transcript --agent qwen-code -g -y
+  ```
+  Le CLI `skills` copie le skill dans `~/.qwen/skills/baoyu-youtube-transcript`, exactement le dossier voisin visé ci-dessus. Si le CLI échoue (réseau, npm), repli manuel :
+  ```bash
+  git clone --depth 1 https://github.com/jimliu/baoyu-skills /tmp/baoyu-skills \
+    && cp -r /tmp/baoyu-skills/skills/baoyu-youtube-transcript ~/.qwen/skills/ \
+    && rm -rf /tmp/baoyu-skills
+  ```
+  puis re-vérifier la présence de `scripts/main.ts`.
 - Runtime : `bun` installé → `${BUN_X}` = `bun` ; sinon `npx` disponible → `${BUN_X}` = `npx -y bun` ; sinon installer bun.
 - Script : `${BUN_X} {baoyuDir}/scripts/main.ts <url-or-id> [options]`
 
