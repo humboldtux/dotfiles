@@ -1,6 +1,6 @@
 ---
 name: writing-transcript
-description: À partir d'une vidéo YouTube (URL ou ID), produit un transcript complet en français avec horodatages, plus un résumé structuré orienté auteur : livres, auteurs, ressources et références citées, citations marquantes, conseils et principes, techniques d'écriture (craft), exercices. À utiliser systématiquement quand l'utilisateur fournit une URL ou vidéo YouTube et veut un transcript en français, un résumé d'un cours, conférence ou atelier d'écriture, ou l'extraction de ressources, citations, conseils et techniques pour son travail d'auteur — même s'il ne dit pas explicitement « transcript » ou « résumé ». S'appuie sur le skill baoyu-youtube-transcript pour le téléchargement ; si l'utilisateur veut seulement le sous-titre brut sans résumé, c'est baoyu-youtube-transcript qui suffit.
+description: À partir d'une vidéo YouTube (URL ou ID), produit un transcript complet en français avec horodatages, plus un résumé structuré orienté auteur : livres, auteurs, ressources et références citées, citations marquantes, conseils et principes, techniques d'écriture (craft), exercices. À utiliser systématiquement quand l'utilisateur fournit une URL ou vidéo YouTube et veut un transcript en français, un résumé d'un cours, conférence ou atelier d'écriture, ou l'extraction de ressources, citations, conseils et techniques pour son travail d'auteur — même s'il ne dit pas explicitement « transcript » ou « résumé ». S'appuie sur le skill baoyu-youtube-transcript pour le téléchargement ; si l'utilisateur veut seulement le sous-titre brut sans résumé, c'est baoyu-youtube-transcript qui suffit. Avant tout traitement, vérifie si la vidéo est déjà dans la hiérarchie Notion de l'utilisateur : si elle y est complète, la commande s'arrête ; sinon, publie le résultat dans Notion (Transcripts / Chaîne / Vidéo, sous-pages Transcript et Résumé).
 ---
 
 # Writing Transcript
@@ -9,6 +9,8 @@ description: À partir d'une vidéo YouTube (URL ou ID), produit un transcript c
 
 1. **`transcript.md`** — le transcript complet **en français**, paragraphes horodatés.
 2. **`resume.md`** — un résumé dense « pour un auteur » : ressources et références, citations, conseils, techniques d'écriture, exercices, points de vue.
+
+Puis le tout est publié dans la hiérarchie Notion de l'utilisateur (étape 4), après vérification de doublon (étape 0).
 
 ## Prérequis
 
@@ -28,6 +30,16 @@ description: À partir d'une vidéo YouTube (URL ou ID), produit un transcript c
 - Script : `${BUN_X} {baoyuDir}/scripts/main.ts <url-or-id> [options]`
 
 ## Workflow
+
+### 0. État initial — vérifier avant de tout faire
+
+Dès la réception de l'URL/ID de la vidéo, avant tout téléchargement :
+
+1. **Notion — la vidéo y est-elle déjà ?** Extraire l'ID vidéo (segment `v=` de l'URL, ou ID brut donné) et le chercher dans Notion. Les outils Notion MCP sont différés : les charger d'abord via `tool_search` (ex. `select:mcp__notion__notion-ai-search,mcp__notion__notion-fetch`). Utiliser `notion-ai-search` si `notion-get-tool-access` le signale disponible, sinon `notion-search` ; en l'absence de résultat fiable, chercher le titre exact de la vidéo. Un résultat ne compte comme « déjà faite » que s'il s'agit de la page de cette vidéo dans la hiérarchie (elle contient le lien exact `https://www.youtube.com/watch?v={id}`) — pas une simple mention de l'ID ailleurs.
+   - **Page vidéo + sous-pages Transcript et Résumé présentes** → **arrêter la commande** : dire à l'utilisateur que la vidéo est déjà dans Notion et lui renvoyer le lien de la page vidéo.
+   - **Page vidéo présente, sous-page(s) manquante(s)** → compléter : réutiliser le livrable local s'il existe (point 2), sinon le produire (étapes 1-3), puis créer **uniquement** les sous-pages manquantes (étape 4).
+   - **Vidéo absente de Notion** → point 2.
+2. **Cache local** : si `transcript.md` et `resume.md` existent déjà dans le dossier de la vidéo (cache baoyu), ne rien re-télécharger ni réécrire — passer directement à l'étape 4.
 
 ### 1. Langues disponibles
 
@@ -71,9 +83,42 @@ Pourquoi deux passes : `transcript.md` est le livrable français (traduction aut
 1. Lire `meta.json` du dossier vidéo (titre, chaîne, date, durée, description, chapitres) puis le transcript. En cas B, lire **les deux** transcripts. Pour un transcript long, lire par morceaux (`read_file` avec `offset`/`limit`) : le résumé doit couvrir **toute** la vidéo, aucun passage ne doit être sauté.
 2. Rédiger `resume.md` dans le même dossier que `transcript.md`, entièrement en français, selon le modèle ci-dessous.
 
-### 4. Signaler au user
+### 4. Import Notion (systématique)
 
-Chemins des deux fichiers, titre et chaîne de la vidéo, langue(s) utilisée(s), et 2-3 éléments marquants du résumé (une ressource, une citation, un conseil).
+Créer — ou compléter si des pages existent déjà — la hiérarchie suivante dans l'espace Notion de l'utilisateur :
+
+```
+Perso / Writing / Transcripts (📝)
+└── {Chaîne YouTube} (✍️)
+    └── {Titre de la vidéo} (🎥)
+        ├── Transcript (📄)
+        └── Résumé (📋)
+```
+
+**Ancrage** : la page `Writing` = https://app.notion.com/p/982ce841bc1b4434bf28419fb073f4d9 (chemin `Perso / Writing`). Ne jamais dupliquer : chercher d'abord `Transcripts` sous `Writing` (fetch), puis la page chaîne sous `Transcripts` (fetch ou recherche) ; ne créer que ce qui manque. La page chaîne porte le nom de la chaîne YouTube (`meta.json`), icône ✍️.
+
+**Page vidéo** (🎥, sous la page chaîne) :
+- En tête, la couverture `imgs/cover.jpg` du cache si présente : `notion-create-file-upload` (filename `cover.jpg`) → POST multipart avec le champ `file` vers `upload_url` (en joignant les `upload_headers` retournés) → insérer le `suggested_markdown` de la réponse en tête de page (`notion-update-page`, `insert_content`, position `start`).
+- Callout 🎬 : `Vidéo YouTube : [watch?v={id}](https://www.youtube.com/watch?v={id})`.
+- Puces de métadonnées : **Chaîne** (podcast si identifiable), **Invité(e)** si interview, **Date de publication**, **Durée** (+ chapitres), **Langue originale** (noter la traduction française en cas B), **Sponsor** si identifiable.
+- Une citation courte et représentative (bloc de citation), si pertinente.
+
+**Sous-pages** `Transcript` (📄) et `Résumé` (📋) : le contenu **intégral** de `transcript.md` et `resume.md`.
+
+**Mécanique** : `notion-create-pages` en `allow_async: false`, appels **séquentiels** — une seule création regroupe toujours des pages de même parent, et chaque niveau a besoin de l'ID du niveau supérieur. Ne créer que les pages effectivement manquantes.
+
+**Conversions Markdown → Notion** (appliquer à tout contenu envoyé) :
+- Format de référence : la ressource `notion://docs/enhanced-markdown-spec` (à lire en cas de doute).
+- Échapper les caractères littéraux : `[` → `\[`, `]` → `\]`, `$` → `\$`, `>` → `\>` (les marqueurs de parole `>>` deviennent donc `\>\>`).
+- Les `> ` en début de ligne restent des blocs de citation (les citations du résumé).
+- Gras-italique imbriqué : écrire `***Titre***` — jamais `**Titre *italique***`, que Notion rend avec des astérisques littéraux.
+- Supprimer le frontmatter YAML et le H1 (le titre de page remplace le H1) ; aucune image à chemin local (l'importer, pas la copier).
+
+**Vérification** : après création, fetch de chaque page — sections et sous-pages présentes, horodatages et marqueurs `>>` intacts (les compter), aucun astérisque littéral résiduel, parent correct dans l'`<ancestor-path>`.
+
+### 5. Signaler au user
+
+Chemins des deux fichiers, titre et chaîne de la vidéo, langue(s) utilisée(s), 2-3 éléments marquants du résumé (une ressource, une citation, un conseil), et les liens des pages Notion (existantes ou créées) : page vidéo + sous-pages.
 
 ## Modèle de `resume.md`
 
