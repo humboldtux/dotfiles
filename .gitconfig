@@ -142,8 +142,8 @@
   enabled = true
 
 [user]
-        name = Benoit Benedetti
-        email = benoit.benedetti@gmail.com
+	name = Benoît Benedetti
+	email = benoit.benedetti@univ-cotedazur.fr
 [credential]
         helper = cache --timeout=3600
 [github]

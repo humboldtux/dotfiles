@@ -52,3 +52,18 @@ font-size = 13
 mouse-hide-while-typing = true
 window-decoration = false
 # background-opacity = 0.9
+
+#shell-integration-features = ssh-terminfo,ssh-env
+
+cursor-style = block
+adjust-cell-height = 35%
+title = " "
+window-padding-balance = true
+window-padding-x = 5
+window-padding-y = 0
+windows-save-state = always
+
+# keybindings
+keybind = cmd+s>r = reload_config
+keybind = cmd+s>x = close_surface
+
