@@ -1,13 +1,14 @@
 ---
 name: perso-transcript
-description: À partir d'une URL — vidéo YouTube (tout sujet : écriture, DevOps, veille info, conférence, cours) ou page web (blog, projet GitHub, newsletter, docs) —, produit une synthèse française : transcript complet horodaté + résumé structuré (vidéo), ou analyse de veille avec constats actionnables (page web). Puis l'utilisateur choisit le routage de la sortie à chaque URL : Notion, issues GitLab granulaires (projet du dossier courant ou projet donné), les deux ou rien. À utiliser systématiquement quand l'utilisateur fournit une URL/vidéo YouTube et veut un transcript en français, un résumé, ou une veille vidéo — même sans dire explicitement « transcript » ou « résumé » — et pour toute veille web qui produirait des constats actionnables. Pour le sous-titre YouTube brut sans résumé, c'est baoyu-youtube-transcript qui suffit. Absorbe l'ancienne commande /perso-veille (supprimée le 2026-09-21) et remplace le skill writing-transcript (renommé).
+description: À partir d'une URL — vidéo YouTube (tout sujet : écriture, DevOps, veille info, conférence, cours) ou page web (blog, projet GitHub, newsletter, docs) —, produit une synthèse française : transcript complet horodaté + résumé structuré (vidéo), ou analyse de veille avec constats actionnables (page web). Puis l'utilisateur choisit le routage de la sortie à chaque URL : Notion, issues GitLab granulaires (projet du dossier courant ou projet donné), les deux ou rien. À utiliser systématiquement quand l'utilisateur fournit une URL/vidéo YouTube et veut un transcript en français, un résumé, ou une veille vidéo — même sans dire explicitement « transcript » ou « résumé » — et pour toute veille web qui produirait des constats actionnables. Pour le sous-titre YouTube brut sans résumé, c'est baoyu-youtube-transcript qui suffit. Troisième branche : quand l'utilisateur demande l'analyse d'un spectacle (théâtre, improvisation) — analyse de performance, fidélité à une méthode/à des concepts —, la branche spectacle (étapes S) remplace le résumé générique : grille de fidélité aux concepts + clips vidéo en local, une page Notion par spectacle. Absorbe l'ancienne commande /perso-veille (supprimée le 2026-09-21) et remplace le skill writing-transcript (renommé).
 ---
 
 # Perso Transcript
 
-Outil unique de synthèse et de veille sur URL. Deux branches selon l'URL :
+Outil unique de synthèse et de veille sur URL. Trois branches selon l'URL et la demande :
 
 - **Vidéo YouTube** → `transcript.md` (français, paragraphes horodatés) + `resume.md` (résumé dense, structure unique générique), dans le cache du skill `baoyu-youtube-transcript` (dossier `youtube-transcript/` du projet courant).
+- **Spectacle (vidéo YouTube)** → `transcript.md` (id.) + `analyse.md` (grille de fidélité aux concepts + moments visuels), étapes S de la branche spectacle.
 - **Page web** (blog, projet GitHub, newsletter, docs…) → `veille.md` (analyse de veille : ce que c'est, constats, ce qui est actionnable pour le projet courant).
 
 Dans les deux cas, une fois le livrable produit et vérifié en local, le **routage de la sortie est demandé à l'utilisateur** (étape commune de routage) : **Notion**, **issues GitLab**, **les deux**, ou **rien**. Ne jamais écrire vers Notion ou GitLab avant ce verdict.
@@ -15,6 +16,7 @@ Dans les deux cas, une fois le livrable produit et vérifié en local, le **rout
 ## 0. Identifier la branche
 
 - URL contient `youtube.com/watch`, `youtu.be/`, `youtube.com/shorts` → **branche vidéo**.
+- URL YouTube + l'utilisateur demande une **analyse de performance** (analyse d'un spectacle, d'une improvisation, fidélité à une méthode/à des concepts, comparaison avec une base de connaissance) → **branche spectacle** : étapes V1–V2b de la branche vidéo (transcript, sans `resume.md`) puis étapes S. En cas de doute (vidéo de spectacle sans demande explicite d'analyse), demander via `ask_user_question` : résumé générique ou analyse de performance ?
 - Sinon (http/https classique) → **branche web**.
 - ID YouTube brut (11 caractères) → branche vidéo.
 
@@ -124,6 +126,52 @@ Corriger l'EN puis laisser la traduction porter les noms corrigés ; noter encor
    - `transcript.md` : frontmatter + sommaire intacts ; **nombre de paragraphes FR == nombre de paragraphes source** ; **diff des listes d'horodatages extraits (FR vs source) = identité** ; registre cohérent (recherche des formes verbales `-ez` suspectes / mélanges tu-vous) ; nombre de `>>` FR == EN (étape V2b.3).
    - Un check qui échoue = livrable non terminé : corriger (troncature + reprise du bloc concerné), ne pas router.
 
+## Branche spectacle (théâtre, improvisation)
+
+Objectif : analyser une performance filmée à l'aune d'une base de connaissance de concepts (méthode d'improvisation, pédagogie théâtrale…) — ce que le spectacle applique, réinvente, ou ignore, avec des preuves horodatées dans le dialogue et l'image.
+
+**S0. Cadrer l'analyse (avant toute récupération)**
+
+`ask_user_question` : (1) quels concepts / quelle base de connaissance servir de grille (ex. la synthèse Mark Jane dans Notion — voir S3 pour la source) ; (2) le niveau : transcript seul ou transcript + clips vidéo en local ; (3) le routage prévu (Notion / rien — GitLab hors périmètre). Retenir les réponses : elles figent le périmètre du livrable.
+
+**S1. Transcript**
+
+Étapes **V1–V2b de la branche vidéo, à l'identique** (langues, 2 passes, assainissement, diarisation `>>` — la diarisation est particulièrement précieuse ici : le dialogue multi-locuteurs d'une impro est exactement le cas podcast/entretien). Écarter seulement le V3 (résumé générique). Même règle d'intégrité que la branche vidéo : une vidéo à la fois, vérifications binaires avant de passer à S2.
+
+**Cas C — pas de sous-titres YouTube** (baoyu : « Transcripts disabled » — fréquent sur les captations de spectacle) : fallback **ASR local** avec faster-whisper (venv `~/.venvs/faster-whisper`, modèle `small`, CPU int8, ~5-7× le temps réel). **Toujours lancer avec `HF_HUB_OFFLINE=1`** quand le modèle est en cache — sans ça, le client HF Hub hang en connexion TCP (rate-limit non authentifié) sans aucun message d'erreur. Reconstruire `transcript.md` au format baoyu depuis les segments bruts (paragraphes : gap > 2 s OU ≥ 300 caractères, `[hh:mm:ss → hh:mm:ss]` ; chapitres depuis la **description** YouTube — `%(chapters...)` renvoie `NA`, les numéros titrés sont dans la description). Diarisation impossible → le dire dans la note de transcription en tête (l'animateur reste reconnaissable au contenu : intro, annonces de contraintes, saluts). Noter les doutes ASR au niveau de l'entrée concernée.
+
+**S2. Découpage en scènes**
+
+Relire `meta.json` + `transcript.md` en entier. Découper la performance en scènes/séquences : repérer les coupures naturelles (changement de configuration, musique, entrées/sorties de scène, numéros titrés dans les chapitres, vagues d'applaudissements dans le transcript brut). Noter pour chaque scène : `[MM:SS → MM:SS]` n° — en 1-2 phrases ce qui se joue. C'est l'échelle d'analyse de la grille.
+
+**S3. Grille de fidélité aux concepts**
+
+Source de la grille : la base de connaissance choisie dans S0. Pour la synthèse Mark Jane : page Notion principale « Creating Improvised Theatre (Mark Jane) — Synthèse de la pédagogie » (id `3e31b4da-436c-8146-82c5-dddae397580d`) + sa sous-page catalogue ; en local si encore présent, les notes `~/.qwen/tmp/mark-jane-notes.md`. Si ni l'un ni l'autre n'est accessible, reconstruire la grille avec l'utilisateur.
+
+Par concept : **observé** / **partiel** / **absent** + 1-3 preuves horodatées (citations verbatim du dialogue avec `>>` de locuteur, ou plages de temps). Une absence se qualifie toujours : choix lié au format (la scène ne l'appelait pas) ou vrai manque. Grille de référence pour l'improvisation (à réduire au format observé — court / long / narratif) :
+
+- **Techniques de scène** : Yes-And ; offres faibles / offres fortes ; AAAAAAGH! (l'idée plus grande qui relance la scène) ; « We're in Trouble » (problème moteur de la scène) ; gestion du statut ; changements émotionnels.
+- **Narratif** (si présent) : les 4 paliers ; les 6 waypoints (monde initial → choix → en difficulté → crise → climax → monde final) ; appels extérieurs/intérieurs (want / need / sacrifice) ; transitions.
+- **Métier** : structure de scène (plateforme → tilt → montagnes russes → plateforme finale) ; archétypes (mentor, shapeshifter, trickster, shadow, ally) ; jeu plutôt que compétition ; le public comme co-auteur ; le corps d'abord.
+
+Chaque case de la grille doit rester traçable : sans preuve horodatée, le statut passe en « partiel (non vérifié) » ou « non observable ».
+
+**S4. Analyse visuelle locale (clips ciblés)**
+
+À faire si S0 a retenu « transcript + clips » (par défaut, oui) :
+
+1. `yt-dlp` : si absent, le rendre disponible (l'installer) plutôt que de demander à l'utilisateur quoi faire (même règle que la section Erreurs). Si le binaire système renvoie **HTTP 403** (version trop vieille), essayer d'abord l'installation user-level `~/.local/bin/yt-dlp` (ou mettre à jour celle-ci) avant de changer de format/`player_client`. Télécharger : `yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" -o "videos/{slug}/{slug}.mp4" '<url>'` (720p suffit, limite la place disque).
+2. Choisir **3 à 6 plages** de la grille qui gagneraient à être vérifiées visuellement (transitions, blocking, jeu corporel, interactions public, scène finale). Extraire avec ffmpeg : `ffmpeg -ss <début> -t <durée> -i videos/{slug}/{slug}.mp4 -c copy videos/{slug}/clip-N-<slug-courant>.mp4` (clips de 30-90 s).
+3. **Lire chaque clip** — d'abord une **probe** (mini-clip de 5-10 s) pour vérifier que le modèle de la session accepte réellement la vidéo, avant de lancer tous les clips :
+   - `read_file` sur le clip si le modèle a la modalité vidéo (`modalities.video: true` dans `~/.qwen/settings.json` — à vérifier, pas à supposer) ;
+   - sinon, pattern **vLLM local** (modèle sans entrée vidéo ni audio — ex. Qwen3.8-27B : 400 « At most 0 audio(s) » / 500 sur `file://`) : helper `visual.py` dans le dossier du spectacle — ffmpeg clip 480p (`scale=854:-2`) → base64 data-URI → `POST localhost:8000/v1/chat/completions` (model de la config, prompt structuré en français sur 5 dimensions : QUI / ACTIONS / CHANGEMENTS / RAPPORT PUBLIC / MISE EN SCÈNE, max_tokens ~2500). Le clip part en JSON, pas en `file://`.
+   - Repli image si l'API échoue aussi : extraire une image toutes les 2-3 s (`ffmpeg -i clip.mp4 -vf fps=1/2.5 frame-%03d.png`) et lire les images.
+4. Par clip : ce que l'image ajoute (blocking, langage corporel, géographie de la scène, réactions du public) ou contredit. **En cas de conflit transcript/vidéo, la vidéo fait foi** : corriger la grille.
+5. **Convertir les horodatages clip-relatifs en absolus AVANT d'écrire `analyse.md`** : l'analyse visuelle ne renvoie que des temps relatifs au début du clip — absolu = début du clip + relatif (ex. [00:36] dans un clip extrait à 57:07 → [57:43]). Recouper chaque horodatage visuel contre le transcript ; un écart inexpliqué = re-vérifier le clip.
+6. Rester dans le dossier `videos/{slug}/` ; ne pas supprimer la vidéo complète sans confirmation explicite de l'utilisateur (place disque).
+
+**S5. Rédiger `analyse.md`** dans le dossier du cache baoyu (modèle ci-dessous), puis vérifier le livrable localement : toutes les sections du modèle présentes et non vides ; chaque statut de la grille a ≥ 1 preuve horodatée ou est marqué « non observable » ; le découpage en scènes couvre toute la durée ; **chaque horodatage de « Moments visuels marquants » est en temps absolu et recoupable contre le transcript** (le check le plus souvent en échec — les analyses visuelles sont clip-relatives, cf. S4.5). Un check qui échoue = livrable non terminé : corriger avant le routage.
+
 ## Branche web
 
 ### P1. Lecture de la page
@@ -159,6 +207,8 @@ Une fois le livrable produit et vérifié localement, **toujours** demander via 
 - **Les deux**.
 - **Rien** — le livrable reste en local ; passer directement à l'étape de signalement.
 
+Branche spectacle : GitLab est **hors périmètre** — la question se limite à **Notion** / **Rien**.
+
 Branche web, en plus des 4 options ci-dessus, ajouter le cas particulier « **Exclu** » (constat déjà couvert par une issue de veille existante → la fermer comme trace de l'analyse). **Jamais d'écriture Notion ou GitLab avant ce verdict.**
 
 ### R1. Import Notion
@@ -166,6 +216,10 @@ Branche web, en plus des 4 options ci-dessus, ajouter le cas particulier « **Ex
 #### R1.0 Vérification de doublon (avant toute création)
 
 Vidéo : extraire l'ID vidéo (segment `v=` de l'URL, ou ID brut) et le chercher dans Notion. Un résultat ne compte comme « déjà fait » que s'il s'agit de la page de cette vidéo dans la hiérarchie (elle contient le lien exact `https://www.youtube.com/watch?v={id}`) — pas une simple mention de l'ID ailleurs. Web : chercher le titre exact / l'URL source dans la hiérarchie.
+
+**La recherche Notion n'indexe PAS le contenu des pages** — l'ID vidéo est dans le corps de la page, pas dans le titre : une recherche de l'ID ne trouve PAS la page déjà créée (vérifié le 2026-09-22, cause directe d'un doublon). Pour le spectacle (et toute page dont l'identifiant est dans le corps) : le check fiable = **`notion-fetch` de la page ancre + comparaison des titres des enfants**, à refaire **immédiatement avant l'appel de création** — pas en début de session : l'état de la session peut avoir été compactée entre-temps, et un « vérifié plus tôt » est sans valeur (la création peut avoir eu lieu dans le segment compacté).
+
+**En cas de doublon** (page créée deux fois — mode d'échec connu après compaction de session) : **l'MCP Notion n'a pas d'outil de suppression de page**. Conserver la page vérifiée ; vider la doublon avec `notion-update-page` (`command: "replace_content"`, une ligne « ⚠️ Doublon — à supprimer » pointant vers l'ID de la page conservée), icon 🗑️, puis demander à l'utilisateur de supprimer la page vide dans Notion. Ne jamais recréer ni laisser deux pages pleines au même titre.
 
 - **Page + sous-pages présentes** → ne rien recréer : signaler les liens existants.
 - **Page présente, sous-pages manquantes** → créer uniquement les sous-pages manquantes.
@@ -182,6 +236,16 @@ Vidéo :
         ├── Transcript (📄)
         └── Résumé (📋)
 ```
+
+Spectacle :
+
+```
+Perso / Théâtre / Improvisation
+└── Spectacles
+    └── {Titre du spectacle} (🎭)   [page unique, pas de sous-pages]
+```
+
+**Ancrage spectacle** : page unique par spectacle — couverture externe en tête (`maxresdefault`), puces de métadonnées (**Troupe**, **Date du spectacle** si connue, **Durée**, **Langue**, **Format** court/long/narratif), puis le **contenu intégral d'`analyse.md`** (sans frontmatter, le titre va dans `properties.title`). La page ancre « Spectacles » **existe déjà** (id `39803714ef494f0183ae9d70fe5536a8`, sous « Improvisation » id `89f9db6614f347099514ff7762710406` — sans emoji) : la réutiliser, jamais de recréation. Avec l'MCP Notion, la création passe en **un seul appel** `notion-create-pages` (parent `page_id` de l'ancre, icon 🎭, cover `maxresdefault`) : le contenu intégral d'`analyse.md` (~10 k caractères) est accepté sans chunking — chunker (create + `update-page` `insert_content` en fin) seulement si l'appel est refusé. R1.0 avant création : fetch de l'ancre, pas de recherche.
 
 Web :
 
@@ -282,6 +346,43 @@ Affirmations contre-intuitives, limites et avertissements des intervenants, anec
 ```
 
 > **Vidéos craft / writing** : les deux sections les plus précieuses sont **Ressources & outils cités** (= liste de lecture — livres, auteurs, méthodes, sites) et **Conseils & bonnes pratiques** (actionnables, horodatés) — les soigner en priorité.
+
+## Modèle de `analyse.md` (branche spectacle)
+
+```markdown
+---
+title: {titre du spectacle}
+company: {troupe / compagnie}
+url: {url}
+date: {date de publication de la vidéo}
+duration: {durée}
+analysis_date: {date de l'analyse}
+source: {chemin relatif du dossier, ex. youtube-transcript/auteur/titre-video}
+---
+
+# {titre du spectacle} — Analyse de performance
+
+## Vue d'ensemble
+2 à 4 paragraphes : format (court / long / narratif), durée, nombre de performers, prémisse, structure générale du spectacle.
+
+## Découpage en scènes
+Une puce par scène/séquence : `[MM:SS → MM:SS]` n° — 1-2 phrases sur ce qui se joue. Couvre toute la durée.
+
+## Grille de fidélité aux concepts
+Par groupe (techniques de scène / narratif / métier — à réduire au format observé), une puce par concept : **observé** / **partiel** / **absent**, suivie de 1-3 preuves horodatées — citations verbatim du dialogue (avec `>>` de locuteur, langue originale) ou plages de temps + ce que montre la vidéo. Un « absent » est toujours qualifié : choix lié au format ou vrai manque.
+
+## Moments visuels marquants
+Ce que l'analyse des clips (S4) a ajouté ou corrigé par rapport au seul transcript : blocking, jeu corporel, géographie de la scène, réactions du public — [MM:SS].
+
+## Verdict
+3-6 lignes : ce que le spectacle applique fidèlement, ce qu'il réinvente, ce qu'il ignore — et en quoi c'est pédagogiquement intéressant.
+
+## Moments notables
+Les plus fortes réussites et les plus grosses faiblesses, [MM:SS], commentées en une phrase.
+
+## Exploitable pour l'enseignement
+Points concrets transposables en cours : extraits à reprojeter aux étudiants, contrastes à faire observer, exercices dérivés.
+```
 
 ## Modèle de `veille.md` (page web)
 
